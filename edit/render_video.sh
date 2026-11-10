@@ -7,11 +7,11 @@
 set -euo pipefail
 S="$1"; W="$2"; OUT="$3"; mkdir -p "$W"
 ENC="-c:v libx264 -preset fast -crf 8 -pix_fmt yuv420p -an"
-# Slow dolly-in on a 2x upscale so the motion stays sub-pixel smooth.
-push() { echo "scale=2560:1440:flags=lanczos,zoompan=z='1+$1*on/$2':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1280x720:fps=24,"; }
+# Slow dolly-in on a 1.5x upscale so the motion stays sub-pixel smooth.
+push() { echo "scale=1920:1080:flags=lanczos,zoompan=z='1+$1*on/$2':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1280x720:fps=24,"; }
 
 shot() { # name src in out filters
-  ffmpeg -y -v error -ss "$3" -to "$4" -i "$S/$2" -vf "${5}fps=24,format=yuv420p" $ENC "$W/$1.mp4"
+  ffmpeg -y -v error -ss "$3" -to "$4" -i "$S/$2" -vf "setpts=PTS-STARTPTS,${5}fps=24,setpts=N/24/TB,format=yuv420p" -t "$(echo "$4 - $3" | bc)" $ENC "$W/$1.mp4"
 }
 # A: in bed on the phone (already has its own slow push-in)
 shot a c1.mp4 0    10   "colortemperature=temperature=6200:mix=0.25,"
@@ -39,4 +39,4 @@ ffmpeg -y -v error -stats \
   [all]$LOOK,tpad=stop_mode=add:stop_duration=2.5:color=black,
        fade=t=in:st=0:d=1.5,fade=t=out:st=40.2:d=2.0,
        noise=c0s=5:c0f=t,format=yuv420p,setsar=1[v]" \
-  -map "[v]" -r 24 -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p -an "$OUT"
+  -map "[v]" -r 24 -c:v libx264 -preset slow -crf 21 -pix_fmt yuv420p -an "$OUT"
