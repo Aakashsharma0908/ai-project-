@@ -89,14 +89,20 @@ for n, shot in enumerate(SHOTS):
              "-filter_complex", f"[1]format=rgba,fade=t=in:st=0.15:d=0.5:alpha=1,fade=t=out:st={d-0.55}:d=0.5:alpha=1[t];"
                                 f"[0][t]overlay,format=yuv420p[v]",
              "-map", "[v]", "-an", "-t", str(d), *ENC, str(out)])
+        if o.get("vo") and not FINAL:
+            pv = WK / f"vo{n}.png"; png(pv, [("रिया (मन में): " + o["vo"], FONT, 23, 540 - 140, (255, 225, 120), True)])
+            tmpc = out.with_name(out.stem + "_t.mkv"); out.rename(tmpc)
+            run(["ffmpeg", "-y", "-v", "error", "-i", str(tmpc), "-i", str(pv), "-filter_complex",
+                 "[0][1]overlay=0:0:enable='gte(t,0.6)',format=yuv420p", "-an", *ENC, str(out)])
         d = frames(out) / 24; silence(out.with_suffix(".wav"), d)
     else:
         f = src_of(src); full = vdur(f)
         if tin is None and tout is None and src.startswith("old:"):
             tin, tout = TRIM.get(int(src[4:]), [0, full])
         tin = tin or 0.0; tout = min(tout or full, full)
-        d = round((tout - tin) * 24) / 24
-        inputs = ["-ss", f"{tin:.3f}", "-t", f"{d:.3f}", "-i", str(f)]; vin = "0:v"
+        slow = o.get("slow", 1.0)
+        d = round((tout - tin) * slow * 24) / 24
+        inputs = ["-ss", f"{tin:.3f}", "-t", f"{d / slow:.3f}", "-i", str(f)]; vin = "0:v"
         if "pic" in o:
             ps, pin = o["pic"]; inputs += ["-ss", f"{pin:.3f}", "-t", f"{d:.3f}", "-i", str(src_of(ps))]; vin = "1:v"
         v = []
@@ -105,6 +111,7 @@ for n, shot in enumerate(SHOTS):
         elif "crop" in o:
             cx, cy, cw = o["crop"]
             v.append(f"crop=iw*{cw}:ih*{cw}:iw*{cx}:min(ih*{cy}\\,ih-ih*{cw})")
+        if slow != 1.0: v.append(f"setpts={slow}*PTS,minterpolate=fps=24:mi_mode=blend")
         v += [f"scale={W}:{H}:flags=lanczos", "fps=24"]
         if "push" in o:
             z = o["push"]; nf = int(d * 24)

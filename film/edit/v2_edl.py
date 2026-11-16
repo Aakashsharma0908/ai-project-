@@ -15,6 +15,7 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          tag=text        small label in the corner for the first seconds (e.g. the mirror replays)
          split=((x0, w), (x1, w))  phone-call split screen from two vertical strips of the same frame
          speak=((a, b), (a, b))    when each side speaks (the other side is dimmed)
+         slow=f          slow motion (source window plays f times slower, sound muted)
          vo=text         Riya's inner voice (narration); shown as yellow text until the voice clip exists
 
 Fixes from the frame-by-frame review are noted inline.
@@ -34,12 +35,13 @@ SHOTS = [
  ("5",  "old:4",  None, None, "C", ["मैं कहाँ हूँ… ये जगह कौन सी है?"], None, {"fin": (1.5, "black")}),
  ("6",  "old:5",  None, None, "C", ["रिया शर्मा… तुम्हारे ख़िलाफ़ केस तुमने ही किया है।"], None),
  ("7",  "up:0f798bb4", None, 8.0, "C", ["ये अदालत तुम्हारे मन की है। यहाँ शीशे झूठ नहीं बोलते।"], None),
- ("8",  "old:14", None, None, "C", ["तीन गवाह आएँगे।", "मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
- ("9",  "old:6",  None, None, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
+  ("9",  "old:6",  None, None, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
  # the judge in this take has an older face: frame on Riya only, the question comes from off-screen
  ("10", "old:16", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None, {"crop": (0.36, 0.0, 0.64)}),
  # --- 2. witness 1: Neha
- ("c1", "card", None, None, "C", [], None, {"text": "पहला गवाह — नेहा", "sub": "15 साल पुरानी दोस्त", "dur": 2.6}),
+ ("8",  "old:14", None, None, "C", ["तीन गवाह आएँगे।", "मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
+ ("c1", "card", None, None, "C", [], None, {"text": "पहला गवाह — नेहा", "sub": "15 साल पुरानी दोस्त", "dur": 6.5,
+        "vo": "नेहा… मेरी पंद्रह साल पुरानी सहेली। उसकी सगाई हो गई… और उसने मुझे बताया तक नहीं।"}),
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"], None),
  ("12", "old:7",  None, None, "W", ["तू हमेशा अपनी ही सुनती है, रिया।", "मैंने कुछ गलत नहीं कहा था।"], None,
         {"mute": [(1.95, 3.45)]}),  # stray second "रिया"
@@ -48,14 +50,19 @@ SHOTS = [
  # the phone call was one frame with both girls side by side: split into Neha's half, then Riya's half
  ("14", "old:24", None, None, "M", ["तू बात तो कर।", "अब कोई फ़ायदा नहीं।"], None,
         {"split": ((0.02, 0.46), (0.50, 0.48)), "speak": ((0.0, 1.5), (1.5, 99))}),
+ ("14s", "up:12889a77", 6.0, 9.2, "M", [], None, {"slow": 2.0, "mute": [(0, 99)], "fout": (0.5, "black"),
+        "vo": "पर सच ये था… उसने बताने की बहुत कोशिश की थी। मैं ही अपने दुख में इतनी डूबी थी, कि उसकी ख़ुशी सुन ही नहीं पाई।"}),
  ("15", "old:8",  None, None, "C", ["मैंने बस सच बोला था…", "पर तूने उसे हमला समझ लिया।"], None),
  # --- 3. witness 2: Aarav
- ("c2", "card", None, None, "C", [], None, {"text": "दूसरा गवाह — आरव", "sub": "जिससे रिया ने प्यार किया", "dur": 2.6}),
+ ("c2", "card", None, None, "C", [], None, {"text": "दूसरा गवाह — आरव", "sub": "जिससे रिया ने प्यार किया", "dur": 6.0,
+        "vo": "आरव… जिससे मैंने सबसे ज़्यादा प्यार किया। मुझे लगता था, उसने मेरा साथ छोड़ दिया।"}),
  ("16", "up:f0d1f21f", 1.6, None, "C", ["जिससे सबसे ज़्यादा प्यार किया… वही छोड़ गया।"], None),
  ("17", "old:9",  None, None, "W", ["तुम कभी सुनती ही नहीं, रिया।", "तुम भी तो मुझे समझते नहीं।"], None),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
  ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None,
         {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ ("19s", "old:17", 7.0, 10.0, "M", [], None, {"slow": 2.0, "mute": [(0, 99)], "fout": (0.5, "black"),
+        "vo": "पर उसने मुझे नहीं छोड़ा था… मैंने ही उसे कभी अपनी कहानी में जगह नहीं दी।"}),
  ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" twice
  # --- 4. witness 3: Maa
  ("21", "old:23", None, None, "C", ["तुमने कभी सुना ही नहीं, सिर्फ़ जवाब दिया।", "मैंने सुना था… मुझे लगा कोई मुझे सुन ही नहीं रहा।"], None),
@@ -63,7 +70,8 @@ SHOTS = [
  ("22a", "old:27", 0.0, 2.45, "C", [], None),
  ("22b", "old:27", 2.45, 3.95, "C", ["अब माँ की बारी है।"], None, {"pic": ("old:18", 0.0)}),
  ("22c", "old:27", 3.95, None, "C", [], None),
- ("c3", "card", None, None, "C", [], None, {"text": "तीसरा गवाह — माँ", "sub": "", "dur": 2.4}),
+ ("c3", "card", None, None, "C", [], None, {"text": "तीसरा गवाह — माँ", "sub": "", "dur": 7.0,
+        "vo": "और माँ… जो हर रोज़ बस एक ही सवाल पूछती थी — खाना खाया? मुझे वो सवाल बोझ लगता था।"}),
  ("23", "old:19", None, None, "W", ["तू अकेली नहीं रह पाएगी।"], None, {"fin": (0.8, "black")}),
  ("24", "old:11", None, None, "W", ["खाना खाया, बेटा?", "हर बार वही सवाल, माँ।"], None, {"fout": (0.6, "black")}),
  ("25", "old:12", None, None, "C", ["आपको मेरी कोई परवाह नहीं है।"], None),
@@ -72,7 +80,8 @@ SHOTS = [
  # stop before Maa stirs a ladle inside a closed pressure cooker
  ("27", "old:25", 0.0, 3.3, "M", ["ठीक है बेटा…"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  ("28", "old:26", None, None, "M", ["मैं अकेली कैसे रहूँगी…"], None, {"fin": (0.6, "black")}),
- ("29", "old:22", None, None, "M", [], None, {"fout": (0.8, "black")}),
+ ("29", "old:22", None, None, "M", [], None, {"fout": (0.8, "black"),
+        "vo": "मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"}),
  ("30", "old:29", None, None, "C", ["माँ से माफ़ी?", "हर बार मेरे साथ ही क्यों होता है?!"], None),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
  # --- 5. twist and the root
@@ -105,7 +114,8 @@ SHOTS = [
  ("47", "old:39", None, None, "C", ["मैं तुम्हारे साथ हूँ।"], None),
  ("48", "old:40", None, None, "C", ["फ़ैसला सुनाया जाता है…", "ख़ुद को माफ़ कर दो।"], None, {"fout": (1.2, "white")}),
  # --- 7. new morning: every setup pays off
- ("49", "old:41", 0.0, 6.5, "G", [], None, {"fin": (1.5, "white")}),
+ ("49", "old:41", None, None, "G", [], None, {"fin": (1.5, "white"),
+        "vo": "उस सुबह मैंने तय किया… अब मैं अपनी कहानी में अकेली नहीं रहूँगी।"}),
  ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
  ("51b", "up:c862d4c9", None, None, "G", ["माँ… मैंने आपके सारे मैसेज पढ़ लिए। राजमा बचा है?"], None),
