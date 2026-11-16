@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Stage 1: render each of the 48 clips (grade, fixes, transitions, cleaned audio).
 
-Usage: render_clips.py <clips_dir with c01.mp4..c48.mp4> <work_dir>
+Usage: render_clips.py <clips_dir with c01.mp4..c48.mp4> <work_dir> [trims.json]
+trims.json maps clip number -> [in, out] seconds (dead air removed for pace).
 Writes work_dir/vNN.mp4 (picture, 1920x1080, 24 fps) and work_dir/aNN.wav (dialogue/foley),
 plus work_dir/timeline.json with each clip's start time and duration.
 
@@ -21,6 +22,7 @@ import json, subprocess, sys
 from pathlib import Path
 
 SRC, W = Path(sys.argv[1]), Path(sys.argv[2])
+TRIM = {int(k): v for k, v in json.loads(Path(sys.argv[3]).read_text()).items()} if len(sys.argv) > 3 else {}
 W.mkdir(parents=True, exist_ok=True)
 
 COURT = {4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 20, 21, 23, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40}
@@ -59,7 +61,10 @@ def run(cmd):
 timeline, t0 = [], 0.0
 for i in range(1, 49):
     f = SRC / f"c{i:02d}.mp4"
-    d = round(dur(f), 3)
+    full = round(dur(f), 3)
+    tin, tout = TRIM.get(i, [0.0, full])
+    tout = min(tout, full); d = round(tout - tin, 3)
+    cut = ["-ss", f"{tin:.3f}", "-t", f"{d:.3f}"]
     look = ("court" if i in COURT else "flash" if i == 17 else "sepia" if i == 35
             else "gold" if i in GOLD else "warm")
     v = ["scale=1920:1080:flags=lanczos", "fps=24", LOOK[look]]
@@ -78,7 +83,7 @@ for i in range(1, 49):
     if fi: v.append(f"fade=t=in:st=0:d={fi}:color={fic}")
     if fo: v.append(f"fade=t=out:st={d - fo:.3f}:d={fo}:color={foc}")
     v.append("format=yuv420p")
-    run(["ffmpeg", "-y", "-v", "error", "-i", str(f), "-vf", ",".join(v), "-an",
+    run(["ffmpeg", "-y", "-v", "error", *cut, "-i", str(f), "-vf", ",".join(v), "-an",
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-t", str(d), str(W / f"v{i:02d}.mp4")])
 
     a = ["aresample=48000", "highpass=f=60", "loudnorm=I=-20:TP=-3:LRA=9"]
@@ -93,9 +98,9 @@ for i in range(1, 49):
     if fi: a.append(f"afade=t=in:st=0:d={min(fi, 1.0)}")
     if fo: a.append(f"afade=t=out:st={d - fo:.3f}:d={fo}")
     a += ["apad", f"atrim=0:{d}"]
-    run(["ffmpeg", "-y", "-v", "error", "-i", str(f), "-af", ",".join(a), "-ac", "2",
+    run(["ffmpeg", "-y", "-v", "error", *cut, "-i", str(f), "-af", ",".join(a), "-ac", "2",
          "-c:a", "pcm_s16le", str(W / f"a{i:02d}.wav")])
-    timeline.append({"clip": i, "start": round(t0, 3), "dur": d, "look": look})
+    timeline.append({"clip": i, "start": round(t0, 3), "dur": d, "in": tin, "look": look})
     t0 += d
     print(f"clip {i:02d} {look:6s} start {timeline[-1]['start']:7.2f}", flush=True)
 

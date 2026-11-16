@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Original score for "Riya - Andar Ki Adalat", written to the edit's timeline.
 
-Usage: score.py <timeline.json> <cold_open_seconds> <out.mid>
+Usage: score.py <timeline.json> <intro_seconds> <outro_seconds> <out.mid>
+The intro is the cold open (judge's voice over black, 0-7 s) plus the title card (7 s - intro end).
 Render: fluidsynth -ni -F out.wav -r 48000 FluidR3_GM.sf2 out.mid
 
 One leitmotif carries the whole film and changes with Riya:
@@ -13,10 +14,12 @@ Music stops dead at the end of the scream (clip 29) so the silence of clip 30 hi
 import json, sys
 import mido
 
-TL = json.load(open(sys.argv[1])); OFF = float(sys.argv[2]); OUT = sys.argv[3]
+TL = json.load(open(sys.argv[1])); OFF = float(sys.argv[2]); OUTRO = float(sys.argv[3]); OUT = sys.argv[4]
+TITLE = 7.0  # title card starts here
 T = {c["clip"]: c["start"] + OFF for c in TL}
 END = TL[-1]["start"] + TL[-1]["dur"] + OFF
 def S(i): return T[i]
+FILM_END = END + OUTRO
 def E(i): return T[i + 1] if i < 48 else END
 
 TPB = 480  # 60 bpm -> 1 beat == 1 second, so times below are in seconds
@@ -90,9 +93,13 @@ def heartbeat(t0, t1, period, v, pitch=33):
 # ---------------------------------------------------------------- the score
 SAD = ["Am", "F", "C", "G"]
 # cold open: heartbeat in the dark under the judge's voice, one low hit on "tumne hi"
-heartbeat(0.3, OFF - 0.3, 1.1, 60)
-drone("bass", 0.0, OFF, [33], 55); ramp("bass", 0.0, OFF, 40, 100)
-note("timp", OFF - 1.4, 2.0, 33, 110)
+heartbeat(0.3, TITLE - 0.4, 1.1, 60)
+drone("bass", 0.0, TITLE, [33], 55); ramp("bass", 0.0, TITLE, 40, 100)
+note("timp", 5.6, 2.0, 33, 100)
+# title card: one deep hit, a dark choir chord and the first notes of the theme, then silence
+note("timp", TITLE, 3.0, 33, 127); note("bass", TITLE, OFF - TITLE, 33, 90)
+drone("choir", TITLE + 0.1, OFF - 0.3, [45, 52, 57, 64], 60); ramp("choir", TITLE, OFF, 110, 0)
+theme("piano", TITLE + 0.8, THEME_MIN[:4], 0.7, 50, transpose=12)
 
 # 1-3 PG room, night: lonely piano; theme enters as she writes; strings + fog into the dream
 piano_arp(S(1), E(3) - 0.5, SAD, 3.2, 60)
@@ -186,7 +193,16 @@ t = theme("flute", S(48) + 1.0, THEME_MAJ[:5], 1.0, 58)
 piano_arp(S(48), S(48) + 6.5, ["F", "G"], 3.2, 44)
 for p in CHORD["Cadd9"] + [76]:
     note("piano", S(48) + 6.5, END - S(48) - 6.4, p, 50)
-drone("strings", S(48) + 6.3, END + 0.5, [60, 64, 67, 74], 45); ramp("strings", S(48) + 6, END, 60, 0)
+drone("strings", S(48) + 6.3, END + 2.0, [60, 64, 67, 74], 45); ramp("strings", S(48) + 6, END + 2, 60, 0)
+
+# outro / end screen: the theme once more, softly, and a long fade
+piano_arp(END + 1.0, FILM_END - 2.0, ["C", "G", "Am", "F"], 3.0, 44)
+pad("strings", END + 1.0, FILM_END - 1.0, ["C", "G", "Am", "F"], 3.0, 36)
+theme("flute", END + 3.0, THEME_MAJ, 0.9, 52)
+for p in CHORD["Cadd9"]:
+    note("piano", FILM_END - 5.0, 4.8, p, 40)
+for inst in ("piano", "strings", "flute"):
+    ramp(inst, FILM_END - 6.0, FILM_END, 100, 0)
 
 # ---------------------------------------------------------------- write MIDI
 mid = mido.MidiFile(ticks_per_beat=TPB); tr = mido.MidiTrack(); mid.tracks.append(tr)
@@ -203,4 +219,4 @@ last = 0
 for t, m in events:
     tick = int(round(t * TPB)); tr.append(m.copy(time=max(0, tick - last))); last = max(last, tick)
 mid.save(OUT)
-print("score length", round(END, 1), "s, events", len(events))
+print("score length", round(FILM_END, 1), "s, events", len(events))

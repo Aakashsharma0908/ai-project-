@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Hindi + English .srt files for the final cut (subtitles are kept out of the picture).
 
-Usage: subtitles.py <clips_dir> <timeline.json> <cold_open_s> <out_prefix>
-Speech timing comes from speech recognition on each clip; the words come from the script.
+Usage: subtitles.py <timing.json> <timeline.json> <intro_s> <out_prefix>
+timing.json: speech segments per source clip (from speech recognition); the words come from the script.
 """
-import json, subprocess, sys
-import numpy as np
-from faster_whisper import WhisperModel
+import json, sys
 
-SRC, TL, OFF, OUT = sys.argv[1], json.load(open(sys.argv[2])), float(sys.argv[3]), sys.argv[4]
-T = {c["clip"]: c["start"] + OFF for c in TL}
+SEG = {int(k): v for k, v in json.load(open(sys.argv[1])).items()}
+TL, OFF, OUT = json.load(open(sys.argv[2])), float(sys.argv[3]), sys.argv[4]
+T = {c["clip"]: c["start"] + OFF - c.get("in", 0.0) for c in TL}  # time of the source clip's 0 s
+LEN = {c["clip"]: (c.get("in", 0.0), c.get("in", 0.0) + c["dur"]) for c in TL}
 
 LINES = {  # clip: [(hindi, english), ...]
  4: [("मैं कहाँ हूँ... ये जगह कौन सी है?", "Where am I... what is this place?")],
@@ -60,26 +60,25 @@ def ts(x):
     ms = int(round(x * 1000)); h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
-model = WhisperModel("large-v3", device="cpu", compute_type="int8")
 cues = [(0.6, 6.2, LINES[5][0])]  # cold open: the judge's line over black
 for clip, lines in LINES.items():
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", f"{SRC}/c{clip:02d}.mp4", "-ac", "1", "-ar", "16000",
-                          "-f", "f32le", "-"], capture_output=True, check=True).stdout
-    segs = list(model.transcribe(np.frombuffer(raw, np.float32), language="hi", vad_filter=True)[0])
+    segs = [(s, e) for s, e, _ in SEG.get(clip, [])]
     if segs:
-        a, b = segs[0].start, segs[-1].end
+        a, b = segs[0][0], segs[-1][1]
     else:
         a, b = 1.0, 6.0
     if clip == 34:  # the take repeats its last words; keep the first reading only
         b = min(b, 7.0)
     if len(segs) == len(lines):
-        spans = [(s.start, s.end) for s in segs]
+        spans = segs
     else:
         tot = sum(len(h) for h, _ in lines); spans, t = [], a
         for h, _ in lines:
             d = (b - a) * len(h) / tot; spans.append((t, t + d)); t += d
+    lo, hi = LEN[clip]
     for (s, e), ln in zip(spans, lines):
-        cues.append((T[clip] + s, T[clip] + max(e, s + 1.2) + 0.3, ln))
+        s, e = max(s, lo), min(max(e, s + 1.2) + 0.3, hi)
+        cues.append((T[clip] + s, T[clip] + e, ln))
     print(clip, [(round(s, 1), round(e, 1)) for s, e in spans], flush=True)
 
 cues.sort()
