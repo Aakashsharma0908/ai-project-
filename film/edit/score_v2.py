@@ -103,9 +103,9 @@ heart(S("20"), E("22c"), 0.95, 58)
 # 21-22 "now it's Maa's turn": one hit on the judge's line
 note("timp", S("22b") + 0.1, 2.5, 33, 120); drone("choir", S("22b"), E("22c"), [45, 52, 57], 55)
 # 23-29 Maa: the theme on flute, tender piano; the mirror replays of her loneliness
-arp(S("23"), E("29"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("23"), E("29"), ["Am", "F", "C", "E"], 3.4, 36)
+arp(S("23"), E("29v"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("23"), E("29v"), ["Am", "F", "C", "E"], 3.4, 36)
 theme("flute", S("23") + 1.0, MIN, 0.9, 62)
-swell(S("27")); theme("flute", S("28") + 1.0, MIN, 0.9, 58, limit=E("29"))
+swell(S("27")); theme("flute", S("28") + 1.0, MIN, 0.9, 58, limit=E("29v"))
 # 30 the scream: everything builds, then stops dead for the silence of 31
 t = S("30")
 while t < E("30") - 3.5:

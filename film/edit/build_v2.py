@@ -141,7 +141,8 @@ for n, shot in enumerate(SHOTS):
             ends = [min(d, max(e0, s0 + 1.2) + 0.3) for s0, e0 in spans]
             for j in range(len(spans) - 1): ends[j] = min(ends[j], spans[j + 1][0] - 0.05)
             for ((s0, e0), text), e1 in zip(zip(spans, subs), ends):
-                p = WK / f"sub{n}_{ov}.png"; png(p, [(text, FONT, 25, 540 - 88, (255, 255, 255), True)])
+                col = (255, 225, 120) if o.get("narr") else (255, 255, 255)
+                p = WK / f"sub{n}_{ov}.png"; png(p, [(text, FONT, 25, 540 - 88, col, True)])
                 inputs += ["-i", str(p)]
                 chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,{s0:.2f},{e1:.2f})'[o{ov}]"
                 last = f"o{ov}"; k += 1; ov += 1
@@ -149,6 +150,12 @@ for n, shot in enumerate(SHOTS):
             p = WK / f"vo{n}.png"; png(p, [("रिया (मन में): " + o["vo"], FONT, 23, 540 - 140, (255, 225, 120), True)])
             inputs += ["-i", str(p)]
             chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,0.1,{d - 0.1:.2f})'[o{ov}]"; last = f"o{ov}"; k += 1; ov += 1
+        if o.get("title"):
+            tt, ts_ = o["title"]; p = WK / f"title{n}.png"
+            png(p, [(tt, SERIF, 46, 200, (240, 228, 205), False)] + ([(ts_, FONT, 24, 275, (214, 176, 110), False)] if ts_ else []))
+            inputs += ["-loop", "1", "-t", f"{d:.3f}", "-i", str(p)]
+            chain += (f";[{k}:v]format=rgba,fade=t=in:st=0.1:d=0.5:alpha=1,fade=t=out:st=3.0:d=0.6:alpha=1[tt{ov}];"
+                      f"[{last}][tt{ov}]overlay=0:0[o{ov}]"); last = f"o{ov}"; k += 1; ov += 1
         if o.get("tag"):
             p = WK / f"tag{n}.png"; png(p, [(o["tag"], FONT, 20, 44, (190, 215, 255), True)])
             inputs += ["-i", str(p)]

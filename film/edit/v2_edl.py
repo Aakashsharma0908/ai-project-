@@ -16,6 +16,8 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          split=((x0, w), (x1, w))  phone-call split screen from two vertical strips of the same frame
          speak=((a, b), (a, b))    when each side speaks (the other side is dimmed)
          slow=f          slow motion (source window plays f times slower, sound muted)
+         narr=True       this shot is narration (subtitles in yellow)
+         title=(t, sub)  chapter title over the picture for the first seconds
          vo=text         Riya's inner voice (narration); shown as yellow text until the voice clip exists
 
 Fixes from the frame-by-frame review are noted inline.
@@ -54,15 +56,13 @@ SHOTS = [
         "vo": "पर सच ये था… उसने बताने की बहुत कोशिश की थी। मैं ही अपने दुख में इतनी डूबी थी, कि उसकी ख़ुशी सुन ही नहीं पाई।"}),
  ("15", "old:8",  None, None, "C", ["मैंने बस सच बोला था…", "पर तूने उसे हमला समझ लिया।"], None),
  # --- 3. witness 2: Aarav
- ("c2", "card", None, None, "C", [], None, {"text": "दूसरा गवाह — आरव", "sub": "जिससे रिया ने प्यार किया", "dur": 6.0,
-        "vo": "आरव… जिससे मैंने सबसे ज़्यादा प्यार किया। मुझे लगता था, उसने मेरा साथ छोड़ दिया।"}),
+ ("c2", "up:9e695c1c", None, None, "W", ["आरव… जिससे मैंने सबसे ज़्यादा प्यार किया। मुझे लगता था, उसने मेरा साथ छोड़ दिया।"], None, {"narr": True, "title": ("दूसरा गवाह — आरव", "जिससे रिया ने प्यार किया")}),
  ("16", "up:f0d1f21f", 1.6, None, "C", ["जिससे सबसे ज़्यादा प्यार किया… वही छोड़ गया।"], None),
  ("17", "old:9",  None, None, "W", ["तुम कभी सुनती ही नहीं, रिया।", "तुम भी तो मुझे समझते नहीं।"], None),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
  ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None,
         {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
- ("19s", "old:17", 7.0, 10.0, "M", [], None, {"slow": 2.0, "mute": [(0, 99)], "fout": (0.5, "black"),
-        "vo": "पर उसने मुझे नहीं छोड़ा था… मैंने ही उसे कभी अपनी कहानी में जगह नहीं दी।"}),
+ ("19s", "up:cbc75f75", None, None, "M", ["पर उसने मुझे नहीं छोड़ा था… मैंने ही उसे कभी अपनी कहानी में जगह नहीं दी।"], None, {"narr": True, "fout": (0.5, "black")}),
  ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" twice
  # --- 4. witness 3: Maa
  ("21", "old:23", None, None, "C", ["तुमने कभी सुना ही नहीं, सिर्फ़ जवाब दिया।", "मैंने सुना था… मुझे लगा कोई मुझे सुन ही नहीं रहा।"], None),
@@ -70,8 +70,7 @@ SHOTS = [
  ("22a", "old:27", 0.0, 2.45, "C", [], None),
  ("22b", "old:27", 2.45, 3.95, "C", ["अब माँ की बारी है।"], None, {"pic": ("old:18", 0.0)}),
  ("22c", "old:27", 3.95, None, "C", [], None),
- ("c3", "card", None, None, "C", [], None, {"text": "तीसरा गवाह — माँ", "sub": "", "dur": 7.0,
-        "vo": "और माँ… जो हर रोज़ बस एक ही सवाल पूछती थी — खाना खाया? मुझे वो सवाल बोझ लगता था।"}),
+ ("c3", "up:9cc03cfd", None, None, "W", ["और माँ… जो हर रोज़ बस एक ही सवाल पूछती थी — खाना खाया? मुझे वो सवाल बोझ लगता था।"], None, {"narr": True, "title": ("तीसरा गवाह — माँ", "")}),
  ("23", "old:19", None, None, "W", ["तू अकेली नहीं रह पाएगी।"], None, {"fin": (0.8, "black")}),
  ("24", "old:11", None, None, "W", ["खाना खाया, बेटा?", "हर बार वही सवाल, माँ।"], None, {"fout": (0.6, "black")}),
  ("25", "old:12", None, None, "C", ["आपको मेरी कोई परवाह नहीं है।"], None),
@@ -80,8 +79,8 @@ SHOTS = [
  # stop before Maa stirs a ladle inside a closed pressure cooker
  ("27", "old:25", 0.0, 3.3, "M", ["ठीक है बेटा…"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  ("28", "old:26", None, None, "M", ["मैं अकेली कैसे रहूँगी…"], None, {"fin": (0.6, "black")}),
- ("29", "old:22", None, None, "M", [], None, {"fout": (0.8, "black"),
-        "vo": "मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"}),
+ ("29", "old:22", None, None, "M", [], None, {}),
+ ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
  ("30", "old:29", None, None, "C", ["माँ से माफ़ी?", "हर बार मेरे साथ ही क्यों होता है?!"], None),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
  # --- 5. twist and the root
@@ -114,8 +113,8 @@ SHOTS = [
  ("47", "old:39", None, None, "C", ["मैं तुम्हारे साथ हूँ।"], None),
  ("48", "old:40", None, None, "C", ["फ़ैसला सुनाया जाता है…", "ख़ुद को माफ़ कर दो।"], None, {"fout": (1.2, "white")}),
  # --- 7. new morning: every setup pays off
- ("49", "old:41", None, None, "G", [], None, {"fin": (1.5, "white"),
-        "vo": "उस सुबह मैंने तय किया… अब मैं अपनी कहानी में अकेली नहीं रहूँगी।"}),
+ ("49", "old:41", 0.0, 6.5, "G", [], None, {"fin": (1.5, "white")}),
+ ("49v", "up:950adc33", None, None, "G", ["उस सुबह मैंने तय किया… अब मैं अपनी कहानी में अकेली नहीं रहूँगी।"], None, {"narr": True}),
  ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
  ("51b", "up:c862d4c9", None, None, "G", ["माँ… मैंने आपके सारे मैसेज पढ़ लिए। राजमा बचा है?"], None),
