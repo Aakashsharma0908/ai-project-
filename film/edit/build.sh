@@ -11,7 +11,8 @@ SRC="$1"; W="$2"; OUT="$3"; TRIMS="${4:-}"; TIMING="${5:-}"; mkdir -p "$W"
 COLD=7.0; TITLE=4.5; INTRO=11.5; OUTRO=20.0
 SF2=/usr/share/sounds/sf2/FluidR3_GM.sf2
 
-python3 "$HERE/render_clips.py" "$SRC" "$W" $TRIMS
+# set RERENDER=1 to force re-grading the clips; otherwise a finished stage-1 render is reused
+if [[ -n "${RERENDER:-}" || ! -f "$W/timeline.json" ]]; then python3 "$HERE/render_clips.py" "$SRC" "$W" $TRIMS; fi
 python3 "$HERE/intro_outro.py" "$SRC" "$W" "$TITLE" "$OUTRO"
 
 # --- picture
