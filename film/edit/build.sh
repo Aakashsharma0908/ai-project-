@@ -24,8 +24,8 @@ ffmpeg -y -v error -f concat -safe 0 -i "$W/vlist.txt" -c copy "$W/picture.mp4"
 
 # --- dialogue bus: cold-open voice + silence under the title + 48 clips + silence under the end screen
 ffmpeg -y -v error -ss 0.6 -to 6.2 -i "$SRC/c05.mp4" -af \
-  "aresample=48000,highpass=f=80,loudnorm=I=-19:TP=-3,aecho=0.8:0.75:90|200|340:0.35|0.22|0.12,adelay=600|600,apad,atrim=0:$COLD" \
-  -ac 2 -c:a pcm_s16le "$W/a00.wav"
+  "aresample=48000,highpass=f=80,loudnorm=I=-19:TP=-3,aecho=0.8:0.75:90|200|340:0.35|0.22|0.12,adelay=600|600,aresample=48000,apad" \
+  -t "$COLD" -ar 48000 -ac 2 -c:a pcm_s16le "$W/a00.wav"
 ffmpeg -y -v error -f lavfi -i "anullsrc=r=48000:cl=stereo" -t "$TITLE" -c:a pcm_s16le "$W/aT.wav"
 ffmpeg -y -v error -f lavfi -i "anullsrc=r=48000:cl=stereo" -t "$OUTRO" -c:a pcm_s16le "$W/aZ.wav"
 { echo "file '$W/a00.wav'"; echo "file '$W/aT.wav'"
@@ -38,14 +38,23 @@ fluidsynth -ni -q -r 48000 -g 0.55 -o synth.reverb.active=1 -o synth.reverb.room
   -o synth.reverb.damp=0.4 -o synth.reverb.width=0.9 -o synth.reverb.level=0.75 \
   -o synth.chorus.active=0 -F "$W/score_raw.wav" "$SF2" "$W/score.mid"
 ffmpeg -y -v error -i "$W/score_raw.wav" -af \
-  "aresample=48000,highpass=f=35,equalizer=f=3500:t=q:w=1:g=-2,aecho=0.8:0.5:70|130:0.12|0.08,loudnorm=I=-24:TP=-4:LRA=14" \
-  -ac 2 -c:a pcm_s16le "$W/score.wav"
+  "aresample=48000,highpass=f=35,equalizer=f=3500:t=q:w=1:g=-2,aecho=0.8:0.5:70|130:0.12|0.08,loudnorm=I=-24:TP=-4:LRA=14,aresample=48000" \
+  -ar 48000 -ac 2 -c:a pcm_s16le "$W/score.wav"
 
 # --- mix: score ducks under speech, dialogue stays on top
 ffmpeg -y -v error -i "$W/dialogue.wav" -i "$W/score.wav" -filter_complex \
   "[0:a]asplit=2[d][sc];[1:a][sc]sidechaincompress=threshold=0.015:ratio=4:attack=60:release=900:makeup=1[m];\
    [d][m]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[mix]" \
-  -map "[mix]" -c:a pcm_s24le "$W/mix_raw.wav"
+  -map "[mix]" -ar 48000 -c:a pcm_s24le "$W/mix_raw.wav"
+# guard: the soundtrack must cover the whole picture
+python3 - "$W/picture.mp4" "$W/mix_raw.wav" <<'PY'
+import subprocess, sys
+d = lambda f: float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f],
+                                   capture_output=True, text=True).stdout)
+v, a = d(sys.argv[1]), d(sys.argv[2])
+assert abs(v - a) < 0.1, f"picture {v:.2f}s vs sound {a:.2f}s"
+print(f"length check ok: picture {v:.2f}s, sound {a:.2f}s")
+PY
 
 # --- master: two-pass loudnorm to -14 LUFS / -1.5 dBTP (YouTube's reference loudness)
 M=$(ffmpeg -hide_banner -i "$W/mix_raw.wav" -af loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json -f null - 2>&1 | sed -n '/^{/,/^}/p')

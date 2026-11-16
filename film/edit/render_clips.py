@@ -99,7 +99,7 @@ for i in range(1, 49):
     run(["ffmpeg", "-y", "-v", "error", *cut, "-i", str(f), *dust_in, "-filter_complex", "[0:v]" + ",".join(v), "-an",
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-t", str(d), str(W / f"v{i:02d}.mp4")])
 
-    a = ["aresample=48000", "highpass=f=60", "loudnorm=I=-20:TP=-3:LRA=9"]
+    a = ["aresample=48000", "highpass=f=60", "loudnorm=I=-20:TP=-3:LRA=9", "aresample=48000"]
     if i in COURT:
         a.append("aecho=0.85:0.6:45|90:0.18|0.10")
     if i == 17:

@@ -83,7 +83,7 @@ for name, clips, hook in SHORTS:
         vf += ",pad=1080:1920:0:240:black,setsar=1,fps=24,format=yuv420p"
         p = tmp / f"p{c}.mp4"
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", FILM,
-                        "-vf", vf, "-c:v", "libx264", "-crf", "16", "-preset", "veryfast",
+                        "-vf", vf, "-threads", "2", "-c:v", "libx264", "-crf", "16", "-preset", "veryfast",
                         "-c:a", "pcm_s16le", str(p)], check=True)
         parts.append(p); print(name, c, f"face x={cx:.2f} spread={spread:.2f}", flush=True)
     (tmp / "list.txt").write_text("".join(f"file '{p}'\n" for p in parts))
