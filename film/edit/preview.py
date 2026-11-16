@@ -82,7 +82,8 @@ for n, shot in enumerate(SHOTS):
         p = tmp / f"card{n}.png"; png(p, card, 28, 44, box=True, color=(255, 214, 0)); inputs += ["-i", str(p)]
         chain += f";[v{k-1}][{k}:v]overlay=0:0:enable='between(t,0.3,3.8)'[v{k}]"; k += 1
     af = "aresample=48000,loudnorm=I=-18:TP=-2"
-    if audio.get("mute"): af += ",volume=0"
+    for a0, b0 in audio.get("mute", []):  # source-time windows -> clip time
+        af += f",volume=enable='between(t,{max(0, a0 - tin):.2f},{max(0, b0 - tin):.2f})':volume=0"
     if audio.get("gain"): af += f",volume={audio['gain']}dB"
     subprocess.run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", chain + f";[v{k-1}]format=yuv420p[vo]",
                     "-map", "[vo]", "-map", "0:a", "-af", af + ",aresample=48000,apad", "-t", f"{d:.3f}",

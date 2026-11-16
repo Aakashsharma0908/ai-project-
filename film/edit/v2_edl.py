@@ -6,7 +6,7 @@ Each shot: (label, source, in, out, look, subtitle lines, name card)
          "todo:X"  -> new clip X not delivered yet (placeholder card in previews)
  in/out: seconds in the source (None = use trims / full length)
  look:   W warm real life, C mind-courtroom (letterbox), M mirror-truth replay, S sepia memory, G golden morning
- audio:  optional dict, e.g. {"mute": True} or {"gain": -9}
+ audio:  optional dict: {"mute": [(a, b), ...]} silences those source seconds, {"gain": dB}
 """
 
 SHOTS = [
@@ -24,7 +24,8 @@ SHOTS = [
  # --- 2. witness 1: Neha
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"],
         "नेहा — 15 साल की दोस्त"),
- ("12", "old:7",  None, None, "W", ["तू हमेशा अपनी ही सुनती है, रिया।", "मैंने कुछ गलत नहीं कहा था।"], None),
+ ("12", "old:7",  None, None, "W", ["तू हमेशा अपनी ही सुनती है, रिया।", "मैंने कुछ गलत नहीं कहा था।"], None,
+        {"mute": [(1.95, 3.45)]}),  # stray second "रिया"
  ("13", "up:12889a77", None, 6.6, "M", ["रिया, मुझे तुझे कुछ बताना है…", "अच्छा छोड़, तू बता, तेरा दिन कैसा था?"], None),
  ("14", "old:24", None, None, "M", ["तू बात तो कर।", "अब कोई फ़ायदा नहीं।"], None),
  ("15", "old:8",  None, None, "C", ["मैंने बस सच बोला था…", "पर तूने उसे हमला समझ लिया।"], None),
@@ -33,19 +34,20 @@ SHOTS = [
  ("17", "old:9",  None, None, "W", ["तुम कभी सुनती ही नहीं, रिया।", "तुम भी तो मुझे समझते नहीं।"], "आरव — जिससे प्यार किया"),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
  ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None),
- ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None),
+ ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" said twice (second at 3.9-4.4 s)
  # --- 4. witness 3: Maa
  ("21", "old:23", None, None, "C", ["तुमने कभी सुना ही नहीं, सिर्फ़ जवाब दिया।", "मैंने सुना था… मुझे लगा कोई मुझे सुन ही नहीं रहा।"], None),
  ("22", "old:27", None, None, "C", ["अब माँ की बारी है।"], None),
  ("23", "old:19", None, None, "W", ["तू अकेली नहीं रह पाएगी।"], "माँ"),
  ("24", "old:11", None, None, "W", ["खाना खाया, बेटा?", "हर बार वही सवाल, माँ।"], None),
  ("25", "old:12", None, None, "C", ["आपको मेरी कोई परवाह नहीं है।"], None),
- ("26", "old:28", None, None, "C", ["आपने मुझे कभी समझा ही नहीं, सिर्फ़ खाना पूछा।"], None),
+ ("26", "old:28", None, None, "C", ["आपने मुझे कभी समझा ही नहीं, सिर्फ़ खाना पूछा।"], None,
+        {"mute": [(2.85, 4.7)]}),  # "खाना पूछा" repeated over Maa's face - looked like Maa said it too
  ("27", "old:25", None, None, "M", ["ठीक है बेटा…"], None),
  ("28", "old:26", None, None, "M", ["मैं अकेली कैसे रहूँगी…"], None),
  ("29", "old:22", None, None, "M", [], None),
- ("30", "old:29", None, None, "C", ["माँ से माफ़ी?", "मैं क्यों माँगूँ?! हर बार मेरे साथ ही क्यों होता है?!"], None),
- ("31", "old:30", None, None, "C", [], None, {"mute": True}),
+ ("30", "old:29", None, None, "C", ["माँ से माफ़ी?", "हर बार मेरे साथ ही क्यों होता है?!"], None),
+ ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line "You are not alone"
  # --- 5. twist and the root
  ("32", "old:31", None, None, "C", [], None),
  ("33", "old:32", None, None, "C", ["अब सच वाली बात सुनो।"], None),
@@ -62,14 +64,14 @@ SHOTS = [
  ("43", "up:0cdf3bcf", None, None, "C", ["चौथा नाम लिखो।", "…रिया।"], None),
  ("44", "old:36", None, None, "C", ["माँ… मुझे माफ़ कर दो…"], None),
  ("45", "old:37", None, None, "C", [], None, {"gain": -9}),
- ("46", "old:38", None, None, "C", ["मैं समझ गई, रिया।"], None),
+ ("46", "old:38", None, 8.8, "C", ["मैं समझ गई, रिया।"], None),  # cut stray "मैं" at 9.1 s
  ("47", "old:39", None, None, "C", ["मैं तुम्हारे साथ हूँ।"], None),
  ("48", "old:40", None, None, "C", ["फ़ैसला सुनाया जाता है…", "ख़ुद को माफ़ कर दो।"], None),
  # --- 7. new morning: every setup pays off
  ("49", "old:41", None, None, "G", [], None),
  ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
- ("52", "up:d5c0f8e7", None, None, "G", ["पगली… तेरे लिए तो रोज़ थोड़ा बचाकर रखती हूँ।"], None),
+ ("52", "up:d5c0f8e7", None, None, "G", ["तेरे लिए तो रोज़ थोड़ा बचाकर रखती हूँ।"], None),
  ("53", "old:44", None, None, "G", [], None),
  ("54", "old:45", None, None, "G", [], None),
  ("55", "up:371fae17", None, None, "G", [], None, {"gain": -12}),
