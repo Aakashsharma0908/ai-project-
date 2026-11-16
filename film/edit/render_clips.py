@@ -54,9 +54,9 @@ FADES = {
     43: (0.8, "black", 0.8, "black"), 48: (0, None, 3.0, "black"),
 }
 
-def dur(f):
-    return float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
-                                 "-of", "csv=p=0", str(f)], capture_output=True, text=True).stdout)
+def dur(f):  # picture length (some sources carry audio that runs past the last frame)
+    return float(subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                                 "stream=duration", "-of", "csv=p=0", str(f)], capture_output=True, text=True).stdout)
 
 def run(cmd):
     subprocess.run(cmd, check=True)

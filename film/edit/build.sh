@@ -13,6 +13,7 @@ SF2=/usr/share/sounds/sf2/FluidR3_GM.sf2
 
 # set RERENDER=1 to force re-grading the clips; otherwise a finished stage-1 render is reused
 if [[ -n "${RERENDER:-}" || ! -f "$W/timeline.json" ]]; then python3 "$HERE/render_clips.py" "$SRC" "$W" $TRIMS; fi
+python3 "$HERE/sync_av.py" "$W"   # picture is master: lock each clip's audio to its video length
 python3 "$HERE/intro_outro.py" "$SRC" "$W" "$TITLE" "$OUTRO"
 
 # --- picture
@@ -51,8 +52,8 @@ M=$(ffmpeg -hide_banner -i "$W/mix_raw.wav" -af loudnorm=I=-14:TP=-1.5:LRA=11:pr
 g() { echo "$M" | python3 -c "import json,sys;print(json.load(sys.stdin)['$1'])"; }
 ffmpeg -y -v error -i "$W/picture.mp4" -i "$W/mix_raw.wav" \
   -af "loudnorm=I=-14:TP=-1.5:LRA=11:measured_I=$(g input_i):measured_TP=$(g input_tp):measured_LRA=$(g input_lra):measured_thresh=$(g input_thresh):offset=$(g target_offset):linear=true,aresample=48000" \
-  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 19 -pix_fmt yuv420p -profile:v high -level 4.1 \
-  -c:a aac -b:a 256k -ar 48000 -shortest -movflags +faststart "$OUT"
+  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 20 -maxrate 9M -bufsize 18M -pix_fmt yuv420p -profile:v high -level 4.1 \
+  -c:a aac -b:a 256k -ar 48000 -movflags +faststart "$OUT"
 
 # --- subtitles (uploaded separately to YouTube, never burned in)
 [[ -n "$TIMING" ]] && python3 "$HERE/subtitles.py" "$TIMING" "$W/timeline.json" "$INTRO" "${OUT%.mp4}"
