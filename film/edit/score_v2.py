@@ -93,7 +93,7 @@ for c in ("c1", "c2", "c3"): chapter(c)
 
 # 11-15 Neha
 arp(S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 40)
-swell(S("13")); drone("pad", S("13"), E("14b"), [64, 69, 76], 50)
+swell(S("13")); drone("pad", S("13"), E("14"), [64, 69, 76], 50)
 # 16-20 Aarav: strings rise, heartbeat under the defence
 pad("strings", S("16"), E("20"), ["Dm", "Bb", "F", "A"], 3.0, 50); ramp("strings", S("16"), E("20"), 60, 110)
 arp(S("16"), E("18"), ["Dm", "Bb", "F", "A"], 3.0, 44)

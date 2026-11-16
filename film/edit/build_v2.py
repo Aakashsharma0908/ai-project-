@@ -100,7 +100,9 @@ for n, shot in enumerate(SHOTS):
         if "pic" in o:
             ps, pin = o["pic"]; inputs += ["-ss", f"{pin:.3f}", "-t", f"{d:.3f}", "-i", str(src_of(ps))]; vin = "1:v"
         v = []
-        if "crop" in o:
+        if "split" in o:  # handled below as a two-strip composition
+            pass
+        elif "crop" in o:
             cx, cy, cw = o["crop"]
             v.append(f"crop=iw*{cw}:ih*{cw}:iw*{cx}:min(ih*{cy}\\,ih-ih*{cw})")
         v += [f"scale={W}:{H}:flags=lanczos", "fps=24"]
@@ -110,7 +112,16 @@ for n, shot in enumerate(SHOTS):
         v.append(LOOK[look])
         if "fin" in o: v.append(f"fade=t=in:st=0:d={o['fin'][0]}:color={o['fin'][1]}")
         if "fout" in o: v.append(f"fade=t=out:st={d - o['fout'][0]:.3f}:d={o['fout'][0]}:color={o['fout'][1]}")
-        chain, k = f"[{vin}]" + ",".join(v) + "[v0]", 1 + (1 if "pic" in o else 0)
+        if "split" in o:
+            (x0, w0), (x1, w1) = o["split"]; (a0, b0), (a1, b1) = o["speak"]; hw = W // 2 - 3
+            side = lambda x, w, a_, b_, tag: (f"crop=iw*{w}:ih:iw*{x}:0,scale={hw}:{H}:force_original_aspect_ratio=increase,"
+                                              f"crop={hw}:{H},{LOOK[look]},eq=brightness=-0.22:enable='not(between(t,{a_},{b_}))'[{tag}]")
+            chain = (f"[{vin}]fps=24,split[l][r];[l]{side(x0, w0, a0, b0, 'L')};[r]{side(x1, w1, a1, b1, 'R')};"
+                     f"color=c=0xd8c8a8:s=6x{H}:r=24:d={d}[bar];[L][bar][R]hstack=3")
+            if "fin" in o: chain += f",fade=t=in:st=0:d={o['fin'][0]}:color={o['fin'][1]}"
+            chain += "[v0]"; k = 1 + (1 if "pic" in o else 0)
+        else:
+            chain, k = f"[{vin}]" + ",".join(v) + "[v0]", 1 + (1 if "pic" in o else 0)
         last = "v0"; ov = 0
         # burned subtitles: spread the script lines across the measured speech inside the shot
         segs = [(s, e) for s, e, *_ in TIM.get(src, []) if e > tin and s < tout]
@@ -127,6 +138,10 @@ for n, shot in enumerate(SHOTS):
                 inputs += ["-i", str(p)]
                 chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,{s0:.2f},{e1:.2f})'[o{ov}]"
                 last = f"o{ov}"; k += 1; ov += 1
+        if o.get("vo") and FINAL is False:  # narration placeholder until the voice clip is delivered
+            p = WK / f"vo{n}.png"; png(p, [("रिया (मन में): " + o["vo"], FONT, 23, 540 - 140, (255, 225, 120), True)])
+            inputs += ["-i", str(p)]
+            chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,0.1,{d - 0.1:.2f})'[o{ov}]"; last = f"o{ov}"; k += 1; ov += 1
         if o.get("tag"):
             p = WK / f"tag{n}.png"; png(p, [(o["tag"], FONT, 20, 44, (190, 215, 255), True)])
             inputs += ["-i", str(p)]
