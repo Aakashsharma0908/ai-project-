@@ -13,7 +13,7 @@ import json, subprocess, sys
 
 SEG = {int(k): v for k, v in json.load(open(sys.argv[1])).items()}
 SRC, OUT = sys.argv[2], sys.argv[3]
-WHOLE = {1, 2, 3, 4, 6, 13, 15, 22, 29, 30, 31, 35, 37, 40, 41, 44, 45, 46, 47, 48}
+WHOLE = {1, 2, 3, 4, 6, 13, 15, 19, 22, 25, 27, 29, 30, 31, 32, 35, 37, 38, 40, 41, 44, 45, 46, 47, 48}  # key visual beats
 REACTION = {8, 12, 16, 17, 19, 20, 24, 25, 26, 27, 28, 32, 33, 36, 38, 39, 42, 43}  # script: a beat after the line
 
 def dur(f):
