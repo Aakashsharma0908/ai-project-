@@ -15,6 +15,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 SRC, W = Path(sys.argv[1]), Path(sys.argv[2]); TD, OD = float(sys.argv[3]), float(sys.argv[4])
 SERIF = "/usr/share/fonts/truetype/noto/NotoSerifDevanagari-Bold.ttf"
 SERIF_R = "/usr/share/fonts/truetype/noto/NotoSerifDevanagari-Regular.ttf"
+LATIN = "/usr/share/fonts/truetype/noto/NotoSerif-Regular.ttf"
+CHANNEL = "M A N   K I   T E H"
 CREAM, GOLD = (238, 230, 214), (214, 176, 110)
 
 def text_png(path, lines, glow, ornament=None):
@@ -37,6 +39,7 @@ def frame(src, t, out):
 
 # ---- title card
 text_png(W / "title.png", [
+    (CHANNEL + "   presents", LATIN, 30, 330, GOLD),
     ("अंदर की अदालत", SERIF, 150, 400, CREAM),
 ], glow=14, ornament=640)
 frame(SRC / "c30.mp4", 8.5, W / "title_bg.png")
@@ -57,6 +60,7 @@ subprocess.run(["ffmpeg", "-y", "-v", "error",
 text_png(W / "outro.png", [
     ("माफ़ी माँगना हार नहीं है…", SERIF_R, 64, 120, CREAM),
     ("ख़ुद को माफ़ करना ही असली आज़ादी है।", SERIF, 70, 215, (245, 222, 170)),
+    ("—   " + CHANNEL + "   —", LATIN, 32, 335, GOLD),
 ], glow=10)
 frame(SRC / "c48.mp4", 9.0, W / "outro_bg.png")
 subprocess.run(["ffmpeg", "-y", "-v", "error",

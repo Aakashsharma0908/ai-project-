@@ -22,6 +22,9 @@ import json, subprocess, sys
 from pathlib import Path
 
 SRC, W = Path(sys.argv[1]), Path(sys.argv[2])
+DUST = Path(__file__).with_name("dust.mp4")  # VFX plate, made by dust.py if missing
+if not DUST.exists():
+    subprocess.run([sys.executable, str(Path(__file__).with_name("dust.py")), str(DUST), "10.5"], check=True)
 TRIM = {int(k): v for k, v in json.loads(Path(sys.argv[3]).read_text()).items()} if len(sys.argv) > 3 else {}
 W.mkdir(parents=True, exist_ok=True)
 
@@ -71,6 +74,15 @@ for i in range(1, 49):
     if look != "sepia":
         v.append("noise=alls=5:allf=t")
     v.append("unsharp=5:5:0.3:5:5:0")
+    # VFX: dust motes drifting in the courtroom light; soft bloom on the golden morning
+    if i in COURT:
+        pre = ",".join(v) + "[base];[1:v]format=gbrp[dust];[base]format=gbrp[b];" \
+              "[b][dust]blend=all_mode=screen:all_opacity=0.40:shortest=1"
+        v = [pre]
+    elif i in GOLD:
+        pre = ",".join(v) + ",format=gbrp,split[b][g];[g]gblur=sigma=28,eq=brightness=-0.06[gl];" \
+              "[b][gl]blend=all_mode=screen:all_opacity=0.22"
+        v = [pre]
     if i in COURT:
         h = f"'min(1,t/2)*{BAR}'" if i == 4 else str(BAR)
         v += [f"drawbox=x=0:y=0:w=iw:h={h}:color=black:t=fill",
@@ -83,7 +95,8 @@ for i in range(1, 49):
     if fi: v.append(f"fade=t=in:st=0:d={fi}:color={fic}")
     if fo: v.append(f"fade=t=out:st={d - fo:.3f}:d={fo}:color={foc}")
     v.append("format=yuv420p")
-    run(["ffmpeg", "-y", "-v", "error", *cut, "-i", str(f), "-vf", ",".join(v), "-an",
+    dust_in = ["-stream_loop", "-1", "-i", str(DUST)] if i in COURT else []
+    run(["ffmpeg", "-y", "-v", "error", *cut, "-i", str(f), *dust_in, "-filter_complex", "[0:v]" + ",".join(v), "-an",
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-t", str(d), str(W / f"v{i:02d}.mp4")])
 
     a = ["aresample=48000", "highpass=f=60", "loudnorm=I=-20:TP=-3:LRA=9"]
