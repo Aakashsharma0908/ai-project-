@@ -58,9 +58,10 @@ subprocess.run(["ffmpeg", "-y", "-v", "error",
 
 # ---- end screen
 text_png(W / "outro.png", [
-    ("माफ़ी माँगना हार नहीं है…", SERIF_R, 64, 120, CREAM),
-    ("ख़ुद को माफ़ करना ही असली आज़ादी है।", SERIF, 70, 215, (245, 222, 170)),
-    ("—   " + CHANNEL + "   —", LATIN, 32, 335, GOLD),
+    ("आपके मन की अदालत में…", SERIF_R, 64, 110, CREAM),
+    ("आज किसका केस चल रहा है?", SERIF, 76, 200, (245, 222, 170)),
+    ("कमेंट में ज़रूर बताइए", SERIF_R, 38, 315, CREAM),
+    ("—   " + CHANNEL + "   —", LATIN, 32, 390, GOLD),
 ], glow=10)
 frame(SRC / "c48.mp4", 9.0, W / "outro_bg.png")
 subprocess.run(["ffmpeg", "-y", "-v", "error",

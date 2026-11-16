@@ -40,6 +40,9 @@ SHOTS = [
  ("7",  "up:0f798bb4", None, 8.0, "C", ["ये अदालत तुम्हारे मन की है। यहाँ शीशे झूठ नहीं बोलते।"], None),
   ("9",  "old:6",  None, None, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
  # the judge in this take has an older face: frame on Riya only, the question comes from off-screen
+ # the channel's theme (मन की तह): the court is her own mind
+ ("9v", "old:6", 7.0, 10.0, "C", [], None, {"slow": 2.0, "mute": [(0, 99)],
+        "vo": "ये मेरा मन था… जहाँ मैं ही वकील थी, मैं ही जज… और मैं ही मुजरिम।"}),
  ("10", "old:16", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None, {"crop": (0.36, 0.0, 0.64)}),
  # --- 2. witness 1: Neha
  ("8",  "old:14", None, None, "C", ["तीन गवाह आएँगे।", "मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
@@ -107,6 +110,9 @@ SHOTS = [
  ("54", "old:45", 2.0, 6.5, "G", [], None),
  ("55", "up:371fae17", 0.0, 7.5, "G", [], None, {"gain": -12}),
  ("56", "up:f51b022a", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None),
- ("57", "old:46", None, None, "G", [], None, {"fout": (2.5, "black"),
+ ("57", "old:46", None, None, "G", [], None, {"fout": (0.6, "black"),
         "vo": "माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"}),
+ # last image speaks to the viewer: everyone has this court inside
+ ("58", "up:2c870df4", None, None, "G", [], None, {"fout": (2.0, "black"),
+        "vo": "हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"}),
 ]

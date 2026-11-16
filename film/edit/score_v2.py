@@ -140,10 +140,11 @@ t = S("48") + 3
 while t < S("48") + 6: note("timp", t, 0.12, 36, 50 + (t - S("48")) * 15); t += 0.12
 note("timp", S("48") + 6.0, 3.5, 36, 127); drone("strings", S("48") + 6, E("48") + 2, [60, 64, 67, 72], 80)
 # 49-57 morning: light piano, the theme in C major on flute; the dinner is the warmest moment
-arp(S("49"), E("57"), ["C", "G", "Am", "F"], 2.6, 54); pad("strings", S("49"), E("57"), ["C", "G", "Am", "F"], 2.6, 42)
+arp(S("49"), E("58"), ["C", "G", "Am", "F"], 2.6, 54); pad("strings", S("49"), E("58"), ["C", "G", "Am", "F"], 2.6, 42)
 theme("flute", S("49") + 2.0, MAJ, 0.8, 58); theme("flute", S("52") + 0.5, MAJ, 0.85, 56)
 theme("violin", S("56") + 0.5, MAJ, 0.9, 60, -12); theme("flute", S("57") + 1.0, MAJ[:5], 1.0, 56)
-drone("strings", S("57") + 6, END + 2, [60, 64, 67, 74], 45); ramp("strings", S("57") + 6, END + 2, 60, 0)
+drone("choir", S("58") + 0.5, E("58"), [60, 67, 72], 42); theme("piano", S("58") + 1.0, MAJ, 0.9, 48, 12)
+drone("strings", S("58") + 4, END + 2, [60, 64, 67, 74], 45); ramp("strings", S("58") + 4, END + 2, 60, 0)
 # outro
 arp(END + 1.0, FILM_END - 2.0, ["C", "G", "Am", "F"], 3.0, 44); pad("strings", END + 1, FILM_END - 1, ["C", "G", "Am", "F"], 3.0, 36)
 theme("flute", END + 3.0, MAJ, 0.9, 52)
