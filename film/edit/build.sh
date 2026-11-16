@@ -61,7 +61,7 @@ M=$(ffmpeg -hide_banner -i "$W/mix_raw.wav" -af loudnorm=I=-14:TP=-1.5:LRA=11:pr
 g() { echo "$M" | python3 -c "import json,sys;print(json.load(sys.stdin)['$1'])"; }
 ffmpeg -y -v error -i "$W/picture.mp4" -i "$W/mix_raw.wav" \
   -af "loudnorm=I=-14:TP=-1.5:LRA=11:measured_I=$(g input_i):measured_TP=$(g input_tp):measured_LRA=$(g input_lra):measured_thresh=$(g input_thresh):offset=$(g target_offset):linear=true,aresample=48000" \
-  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 20 -maxrate 9M -bufsize 18M -pix_fmt yuv420p -profile:v high -level 4.1 \
+  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 21 -maxrate 7.5M -bufsize 15M -pix_fmt yuv420p -profile:v high -level 4.1 \
   -c:a aac -b:a 256k -ar 48000 -movflags +faststart "$OUT"
 
 # --- subtitles (uploaded separately to YouTube, never burned in)
