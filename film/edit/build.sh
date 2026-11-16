@@ -12,7 +12,7 @@ COLD=7.0; TITLE=4.5; INTRO=11.5; OUTRO=20.0
 SF2=/usr/share/sounds/sf2/FluidR3_GM.sf2
 
 # set RERENDER=1 to force re-grading the clips; otherwise a finished stage-1 render is reused
-if [[ -n "${RERENDER:-}" || ! -f "$W/timeline.json" ]]; then python3 "$HERE/render_clips.py" "$SRC" "$W" $TRIMS; fi
+if [[ -n "${RERENDER:-}${ONLY:-}" || ! -f "$W/timeline.json" ]]; then python3 "$HERE/render_clips.py" "$SRC" "$W" $TRIMS; fi
 python3 "$HERE/sync_av.py" "$W"   # picture is master: lock each clip's audio to its video length
 python3 "$HERE/intro_outro.py" "$SRC" "$W" "$TITLE" "$OUTRO"
 
@@ -38,7 +38,7 @@ fluidsynth -ni -q -r 48000 -g 0.55 -o synth.reverb.active=1 -o synth.reverb.room
   -o synth.reverb.damp=0.4 -o synth.reverb.width=0.9 -o synth.reverb.level=0.75 \
   -o synth.chorus.active=0 -F "$W/score_raw.wav" "$SF2" "$W/score.mid"
 ffmpeg -y -v error -i "$W/score_raw.wav" -af \
-  "aresample=48000,highpass=f=35,equalizer=f=3500:t=q:w=1:g=-2,aecho=0.8:0.5:70|130:0.12|0.08,loudnorm=I=-24:TP=-4:LRA=14,aresample=48000" \
+  "aresample=48000,highpass=f=35,equalizer=f=3500:t=q:w=1:g=-2,aecho=0.8:0.5:70|130:0.12|0.08,loudnorm=I=-27:TP=-4:LRA=14,aresample=48000" \
   -ar 48000 -ac 2 -c:a pcm_s16le "$W/score.wav"
 
 # --- mix: score ducks under speech, dialogue stays on top

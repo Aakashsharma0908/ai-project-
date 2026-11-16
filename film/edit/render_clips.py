@@ -18,7 +18,7 @@ Director's rules applied here
 - Clip 35 is a 1990s sepia memory with grain and gate weave.
 - Clip 40 burns to white and clip 41 rises out of white: the verdict becomes the morning.
 """
-import json, subprocess, sys
+import json, os, subprocess, sys
 from pathlib import Path
 
 SRC, W = Path(sys.argv[1]), Path(sys.argv[2])
@@ -62,7 +62,11 @@ def run(cmd):
     subprocess.run(cmd, check=True)
 
 timeline, t0 = [], 0.0
+ONLY = {int(x) for x in os.environ.get("ONLY", "").split(",") if x}  # re-render just these clips
+old = {c["clip"]: c for c in json.loads((W / "timeline.json").read_text())} if ONLY and (W / "timeline.json").exists() else {}
 for i in range(1, 49):
+    if ONLY and i not in ONLY and i in old:
+        timeline.append(old[i]); continue
     f = SRC / f"c{i:02d}.mp4"
     full = round(dur(f), 3)
     tin, tout = TRIM.get(i, [0.0, full])
@@ -84,13 +88,13 @@ for i in range(1, 49):
               "[b][gl]blend=all_mode=screen:all_opacity=0.22"
         v = [pre]
     if i in COURT:
-        h = f"'min(1,t/2)*{BAR}'" if i == 4 else str(BAR)
+        h = f"'max(1,min(1,t/2)*{BAR})'" if i == 4 else str(BAR)  # drawbox h=0 means full frame
         v += [f"drawbox=x=0:y=0:w=iw:h={h}:color=black:t=fill",
               f"drawbox=x=0:y=ih-{BAR}:w=iw:h={BAR}:color=black:t=fill"]
     if i == 41:  # bars open up as she wakes
-        h = f"'max(0,1-t/2.5)*{BAR}'"
-        v += [f"drawbox=x=0:y=0:w=iw:h={h}:color=black:t=fill",
-              f"drawbox=x=0:y=ih-{BAR}:w=iw:h={BAR}:color=black:t=fill:enable='lt(t,2.5)'"]
+        h = f"'max(1,(1-t/2.5)*{BAR})'"  # drawbox h=0 would mean full frame, so clamp and switch off
+        v += [f"drawbox=x=0:y=0:w=iw:h={h}:color=black:t=fill:enable='lt(t,2.5)'",
+              f"drawbox=x=0:y=ih-{h}:w=iw:h={h}:color=black:t=fill:enable='lt(t,2.5)'"]
     fi, fic, fo, foc = FADES.get(i, (0, None, 0, None))
     if fi: v.append(f"fade=t=in:st=0:d={fi}:color={fic}")
     if fo: v.append(f"fade=t=out:st={d - fo:.3f}:d={fo}:color={foc}")

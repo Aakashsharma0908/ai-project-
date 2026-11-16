@@ -103,7 +103,7 @@ for name, clips, hook in SHORTS:
         for (cs, ce, txt) in cues:
             if ce <= a or cs >= b: continue
             st, en = offs[c] + max(cs, a) - a, offs[c] + min(ce, b) - a
-            png = tmp / f"cap{k}.png"; text_png(png, txt, 50, (255, 255, 255), 240)
+            png = tmp / f"cap{k}.png"; text_png(png, txt, 60, (255, 255, 255), 240)
             inputs += ["-i", str(png)]
             chain += f";[{last}][{k}:v]overlay=0:1680:enable='between(t,{st:.2f},{en:.2f})'[v{k}]"; last = f"v{k}"; k += 1
     out = OUT / f"{name}.mp4"
