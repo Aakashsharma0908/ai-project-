@@ -164,6 +164,9 @@ for n, shot in enumerate(SHOTS):
         if look == "C": af += ",aecho=0.85:0.6:45|90:0.16|0.09"
         for a0, b0 in o.get("mute", []):
             af += f",volume=enable='between(t,{max(0, a0 - tin):.2f},{max(0, b0 - tin):.2f})':volume=0"
+        for a0, b0 in o.get("phone", []):  # telephone voice: narrow band
+            w = f"enable='between(t,{max(0, a0 - tin):.2f},{max(0, b0 - tin):.2f})'"
+            af += f",highpass=f=380:{w},lowpass=f=3000:{w},volume=1.6:{w}"
         if o.get("gain"): af += f",volume={o['gain']}dB"
         if "fin" in o: af += f",afade=t=in:st=0:d={min(o['fin'][0], 0.8)}"
         if "fout" in o: af += f",afade=t=out:st={d - o['fout'][0]:.3f}:d={o['fout'][0]}"

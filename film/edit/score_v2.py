@@ -93,7 +93,7 @@ for c in ("c1", "c2", "c3"): chapter(c)
 
 # 11-15 Neha
 arp(S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 40)
-swell(S("13")); drone("pad", S("13"), E("14"), [64, 69, 76], 50)
+swell(S("13")); drone("pad", S("13"), E("14b"), [64, 69, 76], 50)
 # 16-20 Aarav: strings rise, heartbeat under the defence
 pad("strings", S("16"), E("20"), ["Dm", "Bb", "F", "A"], 3.0, 50); ramp("strings", S("16"), E("20"), 60, 110)
 arp(S("16"), E("18"), ["Dm", "Bb", "F", "A"], 3.0, 44)
@@ -103,8 +103,8 @@ heart(S("20"), E("22c"), 0.95, 58)
 # 21-22 "now it's Maa's turn": one hit on the judge's line
 note("timp", S("22b") + 0.1, 2.5, 33, 120); drone("choir", S("22b"), E("22c"), [45, 52, 57], 55)
 # 23-29 Maa: the theme on flute, tender piano; the mirror replays of her loneliness
-arp(S("23"), E("29v"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("23"), E("29v"), ["Am", "F", "C", "E"], 3.4, 36)
-theme("flute", S("23") + 1.0, MIN, 0.9, 62)
+arp(S("24"), E("29v"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("24"), E("29v"), ["Am", "F", "C", "E"], 3.4, 36)
+theme("flute", S("24") + 1.0, MIN, 0.9, 62)
 swell(S("27")); theme("flute", S("28") + 1.0, MIN, 0.9, 58, limit=E("29v"))
 # 30 the scream: everything builds, then stops dead for the silence of 31
 t = S("30")
@@ -115,17 +115,16 @@ ramp("strings", S("30"), E("30") - 3.5, 60, 127); note("timp", E("30") - 3.6, 3.
 drone("choir", S("30") + 2, E("30") - 3.5, [57, 64, 69, 76], 80)
 # 31-33 aftermath: a single violin thread
 note("violin", S("31") + 1.0, E("33") - S("31") - 1.0, 88, 45); ramp("violin", S("31"), E("33"), 30, 60)
-for k, p in enumerate([69, 72, 71, 69]): note("piano", S("32") + 1 + k * 2.2, 2.0, p, 36)
+for k, p in enumerate([69, 72, 71, 69]): note("piano", S("31") + 2 + k * 2.2, 2.0, p, 36)
 # 34 the twist: only a heartbeat, one low hit on "माँ का जन्मदिन"
 heart(S("34"), E("34"), 1.0, 66); note("timp", S("34") + 6.4, 3.0, 31, 127); note("bass", S("34") + 6.4, 3.5, 31, 90)
 # 35 Maa's lonely birthday: clock ticking, the theme very softly on flute
 ticks(S("35"), E("35")); swell(S("35"), 55); theme("flute", S("35") + 1.0, MIN[:6], 1.0, 46)
 # 36-39 childhood: music-box lullaby
-theme("box", S("36") + 0.5, MAJ, 0.75, 70, 12); theme("box", S("38"), MAJ[:6], 0.75, 62, 12)
-pad("pad", S("36"), E("39"), ["C", "F", "C", "G"], 2.5, 38)
+# (childhood flashback removed from the cut)
 # 40-42 the turn: harmony opens towards C major
-arp(S("40"), E("42"), ["F", "G", "Em", "Am", "F", "G", "C", "C"], 2.6, 54)
-pad("strings", S("40"), E("42"), ["F", "G", "Em", "Am", "F", "G", "C", "C"], 2.6, 48); ramp("strings", S("40"), E("42"), 50, 95)
+arp(S("40"), E("41"), ["F", "G", "Em", "Am", "F", "G", "C", "C"], 2.6, 54)
+pad("strings", S("40"), E("41"), ["F", "G", "Em", "Am", "F", "G", "C", "C"], 2.6, 48); ramp("strings", S("40"), E("41"), 50, 95)
 # 43 the fourth name: single notes, then the swell
 for k, p in enumerate([72, 71, 69, 64]): note("piano", S("43") + 0.5 + k * 1.6, 2.5, p, 50)
 note("timp", S("43") + 6.4, 2.5, 36, 90)
