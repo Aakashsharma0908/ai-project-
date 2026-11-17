@@ -68,6 +68,7 @@ SHOTS = [
  ("26a", "old:28", 0.0, 2.85, "C", ["आपने मुझे कभी समझा ही नहीं, सिर्फ़ खाना पूछा।"], None),
  ("26b", "old:28", 5.2, None, "C", [], None),  # Maa crying silently, then Riya
  # --- part B: the mirror shows what really happened, one truth after another
+ ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),  # the judge's challenge opens the mirror
  ("m1", "up:71f4978b", None, 7.6, "C", ["और फिर… शीशे ने मुझे वो दिखाया, जो उस दिन मैंने देखना ही नहीं चाहा।"], None, {"narr": True, "crop": (0.07, 0.0, 0.86)}),  # VO 18 (its burned-in English captions framed out)
  ("13", "up:12889a77", None, 6.6, "M", ["रिया, मुझे तुझे कुछ बताना है…", "अच्छा छोड़, तू बता, तेरा दिन कैसा था?"], None,
         {"fin": (0.25, "white"), "title": ("शीशे का सच — नेहा", "जो उस दिन रिया ने सुना ही नहीं")}),
@@ -86,7 +87,6 @@ SHOTS = [
  ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
  # --- 5. twist and the root
- ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),
  ("34", "up:a20d5c8e", None, None, "C", ["आज कौन सी तारीख़ है, रिया?", "…माँ का जन्मदिन।"], None),
  ("35", "up:9640527b", None, None, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white")}),
  # the father looked young (like Aarav): keep the girl and Maa only, and end before he leans in

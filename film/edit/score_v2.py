@@ -98,6 +98,7 @@ heart(S("20"), E("26b"), 0.95, 54)
 note("timp", S("22b") + 0.1, 2.5, 33, 120); drone("choir", S("22b"), E("22c"), [45, 52, 57], 55)
 theme("flute", S("24") + 1.0, MIN, 0.9, 58, limit=E("23"))
 # part B - the mirror: one reversed-cymbal swell opens it, glassy pads, the theme turns tender
+drone("cello", S("10"), E("10"), [45, 52], 55); ramp("cello", S("10"), E("10"), 40, 80)
 swell(S("m1"), 80); drone("pad", S("m1"), E("29v"), [64, 69, 76], 48)
 pad("strings", S("m1"), E("29v"), ["F", "Am", "Dm", "E"], 3.4, 36)
 for k, p in enumerate([88, 84, 89, 83]): note("piano", S("m1") + 0.5 + k * 1.8, 2.5, p, 40)
