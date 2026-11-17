@@ -116,7 +116,8 @@ for n, shot in enumerate(SHOTS):
         inputs = ["-ss", f"{tin:.3f}", "-t", f"{d / slow:.3f}", "-i", str(f)]; vin = "0:v"
         if "hold" in o:  # freeze the shot's last frame and drift in: the moment continues instead of replaying
             fr = WK / f"hold{n}.png"
-            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{max(0, full - 0.08):.3f}", "-i", str(f), "-frames:v", "1",
+            hf = src_of(o["holdpic"]) if "holdpic" in o else f
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{max(0, vdur(hf) - 0.08):.3f}", "-i", str(hf), "-frames:v", "1",
                  "-update", "1", str(fr)])  # last picture frame (audio may run longer than the video)
             d = round(o["hold"] * 24) / 24
             inputs = ["-ss", f"{tin:.3f}", "-t", f"{d:.3f}", "-i", str(f), "-loop", "1", "-t", f"{d:.3f}", "-i", str(fr)]
@@ -131,9 +132,14 @@ for n, shot in enumerate(SHOTS):
             v.append(f"crop=iw*{cw}:ih*{cw}:iw*{cx}:min(ih*{cy}\\,ih-ih*{cw})")
         if slow != 1.0: v.append(f"setpts={slow}*PTS,minterpolate=fps=24:mi_mode=blend")
         v += [f"scale={W}:{H}:flags=lanczos", "fps=24"]
+        if FINAL:  # enhancement: clean AI noise, then restore crispness after the 720p -> 1080p upscale
+            v += ["hqdn3d=1.2:1.2:2.5:2.5", "unsharp=5:5:0.55:3:3:0.0"]
         if "push" in o:
             z = o["push"]; nf = int(d * 24)
             v.append(f"zoompan=z='1+({z}-1)*on/{nf}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s={W}x{H}:fps=24")
+        if "blur" in o:
+            bx, by, bw, bh = o["blur"]
+            v.append(f"split[bm][bs];[bs]crop=iw*{bw}:ih*{bh}:iw*{bx}:ih*{by},boxblur=12:2[bb];[bm][bb]overlay=W*{bx}:H*{by}")
         v.append(LOOK[look])
         if "fin" in o: v.append(f"fade=t=in:st=0:d={o['fin'][0]}:color={o['fin'][1]}")
         if "fout" in o: v.append(f"fade=t=out:st={d - o['fout'][0]:.3f}:d={o['fout'][0]}:color={o['fout'][1]}")

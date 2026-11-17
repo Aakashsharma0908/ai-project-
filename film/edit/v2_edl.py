@@ -1,5 +1,6 @@
 """Edit decision list for script V2 ("Andar Ki Adalat", see film/SCRIPT_V2.md).
 
+clips/c99.mp4 = VO 17 with its clipped last word ("देखिए") rebuilt into a natural tail (see film/edit/fix_vo17.sh)
 Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
  source: "old:N"   -> clip N of the original 48-clip cut (clips/cNN.mp4, trims.json applies)
          "up:xxxx" -> an uploaded file whose name starts with xxxx
@@ -15,6 +16,8 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          tag=text        small label in the corner for the first seconds (e.g. the mirror replays)
          split=((x0, w), (x1, w))  phone-call split screen from two vertical strips of the same frame
          speak=((a, b), (a, b))    when each side speaks (the other side is dimmed)
+         blur=(x, y, w, h)  blur a region (readable signage)
+         holdpic=src     (with hold) freeze this clip's last frame instead of the sound source's
          hold=s          freeze the frame at `in` for s seconds with a slow push-in (continues a shot, no replay)
          slow=f          slow motion (source window plays f times slower, sound muted)
          phone=[(a, b)]  make those source seconds sound like a phone line
@@ -51,7 +54,7 @@ SHOTS = [
  ("n1", "up:70c5c1a3", None, None, "W", ["…और मुझे बताया तक नहीं?"], None),
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"], None),
  ("c2", "up:9e695c1c", None, None, "W", ["आरव… जिससे मैंने सबसे ज़्यादा प्यार किया। मुझे लगता था, उसने मेरा साथ छोड़ दिया।"], None, {"narr": True, "title": ("दूसरा गवाह — आरव", "जिससे रिया ने प्यार किया")}),
- ("n2", "up:19bf35dd", 1.4, None, "W", [], None),
+ ("n2", "up:19bf35dd", 1.4, None, "W", [], None),  # the small "PUSH" sign is left: a blur box would draw more attention than the sign
  ("16", "up:f0d1f21f", 1.6, None, "C", ["जिससे सबसे ज़्यादा प्यार किया… वही छोड़ गया।"], None),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
  ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" twice
@@ -109,6 +112,6 @@ SHOTS = [
  ("55v", "up:1ae8be95", None, 9.0, "G", ["माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"], None, {"narr": True}),  # VO 7
  ("56", "up:0154efec", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None, {"dub": ("old:11", 0.0, 1.0, 0.45, (0.3, 1.7))}),  # R6; Maa's "खाना खाया?" is the very line (and voice) from the kitchen scene
  # last image speaks to the viewer: everyone has this court inside
- ("58", "up:7596ce4e", None, None, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
- ("58h", "up:2c870df4", 9.9, None, "G", [], None, {"hold": 2.6, "mute": [(0, 99)], "fout": (2.0, "black")}),  # let the last word land, then fade
+ ("58", "old:99", None, 10.0, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
+ ("58h", "old:99", 10.0, None, "G", [], None, {"hold": 2.6, "holdpic": "up:2c870df4", "fout": (2.0, "black")}),  # the last word's tail, over the held mirror frame
 ]
