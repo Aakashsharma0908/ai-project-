@@ -18,6 +18,7 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          hold=s          freeze the frame at `in` for s seconds with a slow push-in (continues a shot, no replay)
          slow=f          slow motion (source window plays f times slower, sound muted)
          phone=[(a, b)]  make those source seconds sound like a phone line
+         dub=(src, a, b, at, (m0, m1))  replace the sound in m0..m1 with src[a:b] placed at `at` (same actor's voice elsewhere)
          pitch=(a, b, r)  re-pitch those source seconds by ratio r (tell two similar AI voices apart)
          narr=True       this shot is narration (subtitles in yellow)
          title=(t, sub)  chapter title over the picture for the first seconds
@@ -106,7 +107,7 @@ SHOTS = [
  ("53", "old:44", 1.0, 4.5, "G", [], None),
  ("54", "old:45", 3.0, 6.5, "G", [], None),
  ("55v", "up:1ae8be95", None, 9.0, "G", ["माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"], None, {"narr": True}),  # VO 7
- ("56", "up:0154efec", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None, {"pitch": (0.3, 1.7, 0.80)}),  # R6: Maa feeds her; her line re-pitched (AI gave both one voice)
+ ("56", "up:0154efec", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None, {"dub": ("old:11", 0.0, 1.0, 0.45, (0.3, 1.7))}),  # R6; Maa's "खाना खाया?" is the very line (and voice) from the kitchen scene
  # last image speaks to the viewer: everyone has this court inside
  ("58", "up:7596ce4e", None, None, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
  ("58h", "up:2c870df4", 9.9, None, "G", [], None, {"hold": 2.6, "mute": [(0, 99)], "fout": (2.0, "black")}),  # let the last word land, then fade

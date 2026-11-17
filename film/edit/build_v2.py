@@ -191,7 +191,18 @@ for n, shot in enumerate(SHOTS):
         run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", chain + f";[{last}]format=yuv420p[vo]",
              "-map", "[vo]", "-an", "-t", f"{d:.4f}", *ENC, str(out)])
         d = frames(out) / 24  # picture is master
-        if "pitch" in o:
+        if "dub" in o:
+            ds, da, db, at, (m0, m1) = o["dub"]
+            mute = f"volume=enable='between(t,{max(0, m0 - tin):.2f},{max(0, m1 - tin):.2f})':volume=0"
+            fc = (f"[0:a]{af},{mute}[base];"
+                  f"[1:a]atrim={da}:{db},asetpts=PTS-STARTPTS,aresample=48000,highpass=f=60,loudnorm=I=-19:TP=-3,"
+                  f"aresample=48000,afade=t=in:d=0.02,afade=t=out:st={db - da - 0.05:.2f}:d=0.05,"
+                  f"adelay={int((at - tin) * 1000)}|{int((at - tin) * 1000)}[dub];"
+                  f"[base][dub]amix=inputs=2:normalize=0:duration=first,apad[ao]")
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{tin:.3f}", "-i", str(f), "-i", str(src_of(ds)), "-vn",
+                 "-filter_complex", fc, "-map", "[ao]", "-t", f"{d:.6f}", "-ar", "48000", "-ac", "2",
+                 "-c:a", "pcm_s16le", str(out.with_suffix(".wav"))])
+        elif "pitch" in o:
             pa, pb, r = o["pitch"]; pa, pb = max(0, pa - tin), max(0, pb - tin)
             fc = (f"[0:a]asplit=3[x][y][z];[x]atrim=0:{pa},asetpts=PTS-STARTPTS[p1];"
                   f"[y]atrim={pa}:{pb},asetpts=PTS-STARTPTS,aresample=48000,asetrate={48000 * r:.0f},aresample=48000,"
