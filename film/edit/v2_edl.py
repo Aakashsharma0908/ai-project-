@@ -80,8 +80,8 @@ SHOTS = [
  ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
  # --- 5. twist and the root
- ("34", "up:a20d5c8e", None, None, "C", ["आज कौन सी तारीख़ है, रिया?", "…माँ का जन्मदिन।"], None),
  ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),
+ ("34", "up:a20d5c8e", None, None, "C", ["आज कौन सी तारीख़ है, रिया?", "…माँ का जन्मदिन।"], None),
  ("35", "up:9640527b", None, None, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  # the father looked young (like Aarav): keep the girl and Maa only, and end before he leans in
  # bridge instead of the childhood flashback: the twist lands on Riya's own blindness
@@ -92,10 +92,12 @@ SHOTS = [
  ("43", "up:0cdf3bcf", None, None, "C", ["चौथा नाम लिखो।", "…रिया।"], None),
  ("44", "old:36", None, None, "C", ["माँ… मुझे माफ़ कर दो…"], None),
  ("45", "old:37", None, None, "C", [], None, {"gain": -9}),
+ ("46", "old:38", None, 8.8, "C", ["मैं समझ गई, रिया।"], None),  # stray "मैं" after 9 s cut
+ ("47", "old:39", None, None, "C", ["मैं तुम्हारे साथ हूँ।"], None),
  ("48", "old:40", None, None, "C", ["फ़ैसला सुनाया जाता है…", "ख़ुद को माफ़ कर दो।"], None, {"fout": (1.2, "white")}),
  # --- 7. new morning: every setup pays off
  ("49", "old:41", 0.0, 5.0, "G", [], None, {"fin": (1.5, "white")}),
- ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
+ ("50", "up:902b666f", 7.2, None, "G", ["हाँ बेटा?"], None),
  ("51b", "up:c862d4c9", None, None, "G", ["माँ… मैंने आपके सारे मैसेज पढ़ लिए। राजमा बचा है?"], None),
  ("52", "up:d5c0f8e7", 3.5, None, "G", ["तेरे लिए तो रोज़ थोड़ा बचाकर रखती हूँ।"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),

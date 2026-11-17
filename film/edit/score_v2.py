@@ -121,9 +121,9 @@ pad("strings", S("40"), E("41"), ["F", "G", "Em", "Am", "F", "G", "C", "C"], 2.6
 for k, p in enumerate([72, 71, 69, 64]): note("piano", S("43") + 0.5 + k * 1.6, 2.5, p, 50)
 note("timp", S("43") + 6.4, 2.5, 36, 90)
 # 44-47 forgiveness: full strings, violin carries the theme
-arp(S("44"), E("45"), ["F", "C", "G", "Am", "F", "C", "G", "C"], 2.8, 54)
-pad("strings", S("44"), E("45"), ["F", "C", "G", "Am", "F", "C", "G", "C"], 2.8, 60)
-ramp("strings", S("44"), S("45") + 5, 50, 120); ramp("strings", S("45") + 5, E("45"), 120, 80)
+arp(S("44"), E("47"), ["F", "C", "G", "Am", "F", "C", "G", "C"], 2.8, 54)
+pad("strings", S("44"), E("47"), ["F", "C", "G", "Am", "F", "C", "G", "C"], 2.8, 60)
+ramp("strings", S("44"), S("45") + 5, 50, 120); ramp("strings", S("45") + 5, E("47"), 120, 80)
 theme("violin", S("45") + 0.5, MAJ, 0.9, 72, -12)
 # 48 verdict: drone + choir + timpani roll, mirrors break into C major light
 drone("cello", S("48"), S("48") + 6, [36, 43], 80); ramp("cello", S("48"), S("48") + 6, 50, 120)
