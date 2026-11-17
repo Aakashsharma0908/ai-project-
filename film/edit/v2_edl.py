@@ -15,6 +15,7 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          tag=text        small label in the corner for the first seconds (e.g. the mirror replays)
          split=((x0, w), (x1, w))  phone-call split screen from two vertical strips of the same frame
          speak=((a, b), (a, b))    when each side speaks (the other side is dimmed)
+         hold=s          freeze the frame at `in` for s seconds with a slow push-in (continues a shot, no replay)
          slow=f          slow motion (source window plays f times slower, sound muted)
          phone=[(a, b)]  make those source seconds sound like a phone line
          pitch=(a, b, r)  re-pitch those source seconds by ratio r (tell two similar AI voices apart)
@@ -37,10 +38,10 @@ SHOTS = [
  ("5",  "old:4",  None, None, "C", ["मैं कहाँ हूँ… ये जगह कौन सी है?"], None, {"fin": (1.5, "black")}),
  ("6",  "old:5",  None, None, "C", ["रिया शर्मा… तुम्हारे ख़िलाफ़ केस तुमने ही किया है।"], None),
  ("7",  "up:0f798bb4", None, 8.0, "C", ["ये अदालत तुम्हारे मन की है। यहाँ शीशे झूठ नहीं बोलते।"], None),
-  ("9",  "old:6",  0.0, 7.0, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
+  ("9",  "old:6",  None, None, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
  # the judge in this take has an older face: frame on Riya only, the question comes from off-screen
  # the channel's theme (मन की तह): the court is her own mind
- ("9v", "old:6", 7.0, 10.0, "C", [], None, {"slow": 2.0, "mute": [(0, 99)],
+ ("9v", "old:6", 9.95, None, "C", [], None, {"hold": 5.5, "mute": [(0, 99)],
         "vo": "ये मेरा मन था… जहाँ मैं ही वकील थी, मैं ही जज… और मैं ही मुजरिम।"}),
  # --- 2. witness 1: Neha
  ("8a", "old:14", 0.0, 1.35, "C", ["तीन गवाह आएँगे।"], None),
@@ -87,10 +88,10 @@ SHOTS = [
  # --- 5. twist and the root
  ("34", "up:a20d5c8e", None, None, "C", ["आज कौन सी तारीख़ है, रिया?", "…माँ का जन्मदिन।"], None),
  ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),
- ("35", "up:9640527b", None, 6.4, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ ("35", "up:9640527b", None, None, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  # the father looked young (like Aarav): keep the girl and Maa only, and end before he leans in
  # bridge instead of the childhood flashback: the twist lands on Riya's own blindness
- ("35s", "up:9640527b", 6.4, 9.6, "M", [], None, {"slow": 2.0, "mute": [(0, 99)], "fout": (0.6, "black"),
+ ("35s", "up:9640527b", 10.1, None, "M", [], None, {"hold": 6.0, "mute": [(0, 99)], "fout": (0.6, "black"),
         "vo": "मैं अपने आँसुओं में इतनी डूबी रही… कि माँ के आँसू मुझे कभी दिखे ही नहीं।"}),
  ("40", "up:641e0ae5", None, None, "C", ["अहंकार हमेशा 'मैं' नहीं चिल्लाता… कभी-कभी वो आँसू पहनकर आता है।"], None),
  ("41", "old:33", None, None, "C", ["सच ये है… तुम गलत नहीं थी, तुम थक गई थी।"], None),

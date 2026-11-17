@@ -114,6 +114,13 @@ for n, shot in enumerate(SHOTS):
         slow = o.get("slow", 1.0)
         d = round((tout - tin) * slow * 24) / 24
         inputs = ["-ss", f"{tin:.3f}", "-t", f"{d / slow:.3f}", "-i", str(f)]; vin = "0:v"
+        if "hold" in o:  # freeze the shot's last frame and drift in: the moment continues instead of replaying
+            fr = WK / f"hold{n}.png"
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{max(0, full - 0.08):.3f}", "-i", str(f), "-frames:v", "1",
+                 "-update", "1", str(fr)])  # last picture frame (audio may run longer than the video)
+            d = round(o["hold"] * 24) / 24
+            inputs = ["-ss", f"{tin:.3f}", "-t", f"{d:.3f}", "-i", str(f), "-loop", "1", "-t", f"{d:.3f}", "-i", str(fr)]
+            vin = "1:v"; o.setdefault("push", 1.08)
         if "pic" in o:
             ps, pin = o["pic"]; inputs += ["-ss", f"{pin:.3f}", "-t", f"{d:.3f}", "-i", str(src_of(ps))]; vin = "1:v"
         v = []
@@ -139,7 +146,7 @@ for n, shot in enumerate(SHOTS):
             if "fin" in o: chain += f",fade=t=in:st=0:d={o['fin'][0]}:color={o['fin'][1]}"
             chain += "[v0]"; k = 1 + (1 if "pic" in o else 0)
         else:
-            chain, k = f"[{vin}]" + ",".join(v) + "[v0]", 1 + (1 if "pic" in o else 0)
+            chain, k = f"[{vin}]" + ",".join(v) + "[v0]", 1 + (1 if ("pic" in o or "hold" in o) else 0)
         last = "v0"; ov = 0
         # burned subtitles: spread the script lines across the measured speech inside the shot
         segs = [(s, e) for s, e, *_ in TIM.get(src, []) if e > tin and s < tout]
