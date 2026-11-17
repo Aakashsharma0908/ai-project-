@@ -91,23 +91,19 @@ def chapter(label):  # deep hit + harp gliss under each witness card
     for k, p in enumerate([57, 60, 64, 69, 72]): note("harp", S(label) + 0.3 + k * 0.08, 2.0, p, 60)
 for c in ("c1", "c2", "c3"): chapter(c)
 
-# 11-15 Neha
-arp(S("11"), E("14s"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("11"), E("14s"), ["Am", "F", "Dm", "E"], 3.2, 40)
-swell(S("13")); drone("pad", S("13"), E("14b"), [64, 69, 76], 50)
-# 16-20 Aarav: strings rise, heartbeat under the defence
-pad("strings", S("16"), E("20"), ["Dm", "Bb", "F", "A"], 3.0, 50); ramp("strings", S("16"), E("20"), 60, 110)
-arp(S("16"), E("18"), ["Dm", "Bb", "F", "A"], 3.0, 44)
-swell(S("19")); drone("pad", S("19"), E("19"), [64, 69, 76], 50)
-for k, p in enumerate([81, 76, 79, 74, 76, 72]): note("piano", S("19") + 0.3 + k * 1.6, 3.0, p + 12, 40)
-heart(S("20"), E("22c"), 0.95, 58)
-# 21-22 "now it's Maa's turn": one hit on the judge's line
+# part A - Riya's case: the sad progression walks under her accusations, heartbeat creeping in
+arp(S("c1"), E("26b"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("c1"), E("26b"), ["Am", "F", "Dm", "E"], 3.2, 42)
+ramp("strings", S("c1"), E("26b"), 45, 105)
+heart(S("20"), E("26b"), 0.95, 54)
 note("timp", S("22b") + 0.1, 2.5, 33, 120); drone("choir", S("22b"), E("22c"), [45, 52, 57], 55)
-# 23-29 Maa: the theme on flute, tender piano; the mirror replays of her loneliness
-arp(S("24"), E("29v"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("24"), E("29v"), ["Am", "F", "C", "E"], 3.4, 36)
-theme("flute", S("24") + 1.0, MIN, 0.9, 62)
-swell(S("27")); theme("flute", S("28") + 1.0, MIN, 0.9, 58, limit=E("29v"))
-# 30 the scream: everything builds, then stops dead for the silence of 31
-# (the scream was cut) the Maa chapter ends on a long low swell into the silence of 31
+theme("flute", S("24") + 1.0, MIN, 0.9, 58, limit=E("23"))
+# part B - the mirror: one reversed-cymbal swell opens it, glassy pads, the theme turns tender
+swell(S("m1"), 80); drone("pad", S("m1"), E("29v"), [64, 69, 76], 48)
+pad("strings", S("m1"), E("29v"), ["F", "Am", "Dm", "E"], 3.4, 36)
+for k, p in enumerate([88, 84, 89, 83]): note("piano", S("m1") + 0.5 + k * 1.8, 2.5, p, 40)
+for lab in ("19", "28"): swell(S(lab), 60)
+for k, p in enumerate([81, 76, 79, 74, 76, 72]): note("piano", S("19") + 0.3 + k * 1.6, 3.0, p + 12, 40)
+arp(S("28"), E("29v"), ["Am", "F", "C", "E"], 3.4, 42); theme("flute", S("28") + 1.0, MIN, 0.9, 60, limit=E("29v"))
 drone("cello", S("29v"), E("29v") + 1.0, [45, 52], 70); ramp("cello", S("29v"), E("29v") + 1.0, 60, 0)
 # 31-33 aftermath: a single violin thread
 note("violin", S("31") + 1.0, E("31") - S("31") - 1.0, 88, 45); ramp("violin", S("31"), E("31"), 30, 60)

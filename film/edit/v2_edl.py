@@ -45,42 +45,37 @@ SHOTS = [
  # --- 2. witness 1: Neha
  ("8a", "old:14", 0.0, 1.35, "C", ["तीन गवाह आएँगे।"], None),
  ("8b", "old:14", 3.7, None, "C", ["मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
+ # --- part A: Riya's case - her three accusations
  ("c1", "up:76e8986c", None, None, "W", ["नेहा… मेरी पंद्रह साल पुरानी सहेली। उसकी सगाई हो गई… और उसने मुझे बताया तक नहीं।"], None, {"narr": True, "title": ("पहला गवाह — नेहा", "15 साल पुरानी दोस्त")}),
  ("n1", "up:70c5c1a3", None, None, "W", ["…और मुझे बताया तक नहीं?"], None),
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"], None),
- ("m1", "up:71f4978b", None, 7.6, "C", ["और फिर… शीशे ने मुझे वो दिखाया, जो उस दिन मैंने देखना ही नहीं चाहा।"], None, {"narr": True, "crop": (0.07, 0.0, 0.86)}),  # VO 18 (its burned-in English captions framed out)
- ("13", "up:12889a77", None, 6.6, "M", ["रिया, मुझे तुझे कुछ बताना है…", "अच्छा छोड़, तू बता, तेरा दिन कैसा था?"], None,
-        {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
- # the phone call was one frame with both girls side by side: split into Neha's half, then Riya's half
- ("14a", "old:24", 0.0, 1.1, "M", ["तू बात तो कर।"], None, {"crop": (0.0, 0.08, 0.40)}),
- ("14b", "old:24", 1.1, 2.4, "M", ["अब…"], None, {"crop": (0.40, 0.05, 0.50)}),
- ("14c", "old:24", 4.9, 9.5, "M", ["कोई फ़ायदा नहीं।"], None, {"crop": (0.0, 0.05, 0.75), "phone": [(4.9, 6.4)]}),
- ("14s", "up:d5d4c6a6", None, None, "M", ["पर सच ये था… उसने बताने की बहुत कोशिश की थी। मैं ही अपने दुख में इतनी डूबी थी, कि उसकी ख़ुशी सुन ही नहीं पाई।"], None, {"narr": True, "fout": (0.5, "black")}),
- # --- 3. witness 2: Aarav
  ("c2", "up:9e695c1c", None, None, "W", ["आरव… जिससे मैंने सबसे ज़्यादा प्यार किया। मुझे लगता था, उसने मेरा साथ छोड़ दिया।"], None, {"narr": True, "title": ("दूसरा गवाह — आरव", "जिससे रिया ने प्यार किया")}),
  ("n2", "up:19bf35dd", 1.4, None, "W", [], None),
  ("16", "up:f0d1f21f", 1.6, None, "C", ["जिससे सबसे ज़्यादा प्यार किया… वही छोड़ गया।"], None),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
- ("mc2", "up:0f798bb4", 8.0, 10.0, "C", [], None, {"mute": [(0, 99)], "fout": (0.25, "white")}),  # mirror motif
- ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None,
-        {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" twice
- ("19s", "up:cbc75f75", None, None, "M", ["पर उसने मुझे नहीं छोड़ा था… मैंने ही उसे कभी अपनी कहानी में जगह नहीं दी।"], None, {"narr": True, "fout": (0.5, "black")}),
- # --- 4. witness 3: Maa
- # "अब माँ की बारी है" is the veiled judge's line: cut to her while it is spoken, then back to Riya freezing
  ("22a", "old:27", 0.0, 2.45, "C", [], None),
  ("22b", "old:27", 2.45, 3.95, "C", ["अब माँ की बारी है।"], None, {"pic": ("old:18", 0.0)}),
  ("22c", "old:27", 3.95, None, "C", [], None),
  ("24", "old:11", None, None, "W", ["खाना खाया, बेटा?", "हर बार वही सवाल, माँ।"], None, {"fout": (0.6, "black"), "title": ("तीसरा गवाह — माँ", "")}),
  ("c3", "up:9cc03cfd", None, None, "W", ["और माँ… जो हर रोज़ बस एक ही सवाल पूछती थी — खाना खाया? मुझे वो सवाल बोझ लगता था।"], None, {"narr": True}),
  ("23", "old:19", None, None, "W", ["तू अकेली नहीं रह पाएगी।"], None, {"fin": (0.8, "black")}),
- ("28", "up:905460ba", None, None, "M", ["मैं अकेली कैसे रहूँगी…"], None, {"fin": (0.6, "black")}),
  ("25", "old:12", None, None, "C", ["आपको मेरी कोई परवाह नहीं है।"], None),
  ("26a", "old:28", 0.0, 2.85, "C", ["आपने मुझे कभी समझा ही नहीं, सिर्फ़ खाना पूछा।"], None),
  ("26b", "old:28", 5.2, None, "C", [], None),  # Maa crying silently, then Riya
- # stop before Maa stirs a ladle inside a closed pressure cooker
- ("mc3", "up:0f798bb4", 8.0, 10.0, "C", [], None, {"mute": [(0, 99)], "fout": (0.25, "white")}),  # mirror motif
- ("27", "old:25", 0.0, 3.3, "M", ["ठीक है बेटा…"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ # --- part B: the mirror shows what really happened, one truth after another
+ ("m1", "up:71f4978b", None, 7.6, "C", ["और फिर… शीशे ने मुझे वो दिखाया, जो उस दिन मैंने देखना ही नहीं चाहा।"], None, {"narr": True, "crop": (0.07, 0.0, 0.86)}),  # VO 18 (its burned-in English captions framed out)
+ ("13", "up:12889a77", None, 6.6, "M", ["रिया, मुझे तुझे कुछ बताना है…", "अच्छा छोड़, तू बता, तेरा दिन कैसा था?"], None,
+        {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ ("14a", "old:24", 0.0, 1.1, "M", ["तू बात तो कर।"], None, {"crop": (0.0, 0.08, 0.40)}),
+ ("14b", "old:24", 1.1, 2.4, "M", ["अब…"], None, {"crop": (0.40, 0.05, 0.50)}),
+ ("14c", "old:24", 4.9, 9.5, "M", ["कोई फ़ायदा नहीं।"], None, {"crop": (0.0, 0.05, 0.75), "phone": [(4.9, 6.4)]}),
+ ("14s", "up:d5d4c6a6", None, None, "M", ["पर सच ये था… उसने बताने की बहुत कोशिश की थी। मैं ही अपने दुख में इतनी डूबी थी, कि उसकी ख़ुशी सुन ही नहीं पाई।"], None, {"narr": True, "fout": (0.5, "black")}),
+ ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None,
+        {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ ("19s", "up:cbc75f75", None, None, "M", ["पर उसने मुझे नहीं छोड़ा था… मैंने ही उसे कभी अपनी कहानी में जगह नहीं दी।"], None, {"narr": True, "fout": (0.5, "black")}),
+ ("28", "up:905460ba", None, None, "M", ["मैं अकेली कैसे रहूँगी…"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
+ ("27", "old:25", 0.0, 3.3, "M", ["ठीक है बेटा…"], None, {"fin": (0.25, "white")}),
  ("29", "up:4f62cd0e", None, None, "M", [], None, {}),
  ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
