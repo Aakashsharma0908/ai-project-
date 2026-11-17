@@ -112,6 +112,6 @@ SHOTS = [
  ("55v", "up:1ae8be95", None, 9.0, "G", ["माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"], None, {"narr": True}),  # VO 7
  ("56", "up:0154efec", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None, {"dub": ("old:11", 0.0, 1.0, 0.45, (0.3, 1.7))}),  # R6; Maa's "खाना खाया?" is the very line (and voice) from the kitchen scene
  # last image speaks to the viewer: everyone has this court inside
- ("58", "old:99", None, 10.0, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
- ("58h", "old:99", 10.0, None, "G", [], None, {"hold": 2.6, "holdpic": "up:2c870df4", "fout": (2.0, "black")}),  # the last word's tail, over the held mirror frame
+ ("58", "old:99", None, 10.2, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
+ ("58h", "old:99", 10.2, None, "G", [], None, {"hold": 2.6, "holdpic": "up:2c870df4", "fout": (2.0, "black")}),  # the last word's tail, over the held mirror frame
 ]
