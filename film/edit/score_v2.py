@@ -77,7 +77,7 @@ theme("piano", 7.8, MIN[:4], 0.7, 50, 12)
 # 1-4 night: lonely piano, the theme as she writes the list, strings as the fog comes in
 arp(S("1"), E("4") - 0.5, ["Am", "F", "C", "G"], 3.2, 60)
 theme("piano", S("3") + 0.5, MIN, 0.8, 66, 12)
-drone("strings", S("4") + 2, E("4") + 1.5, [57, 64, 69], 50); ramp("strings", S("4") + 2, E("4"), 20, 100)
+drone("strings", S("4") + 2, E("4v") + 1.0, [57, 64, 69], 50); ramp("strings", S("4") + 2, E("4v"), 20, 100)
 
 # 5-10 the courtroom: cello drone, glassy piano, choir breath when Judge Riya appears
 drone("cello", S("5"), E("8b"), [45, 52], 70); ramp("cello", S("5"), S("6"), 30, 95)

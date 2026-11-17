@@ -33,16 +33,15 @@ SHOTS = [
  # Maa's voice note: only the lit phone is shown, so nobody on screen seems to say Maa's words
  ("2",  "up:2f6bfda3", None, 8.5, "W", ["रिया… आज तो फ़ोन उठा ले बेटा…"], None, {"tag": "माँ का वॉइसमेल"}),  # R1: only the phone is seen
  ("3",  "up:90613145", None, None, "W", ["नेहा… आरव… माँ। चौथा नाम… बाद में।"], None),
- ("4",  "old:3",  None, None, "W", [], None, {"fout": (1.5, "black"),
-        "vo": "उस रात मैं सोई… और मेरी आँख खुली, अपने ही मन की अदालत में।"}),
+ ("4",  "old:3",  None, None, "W", [], None, {"fout": (1.5, "black")}),
+ ("4v", "up:8cdaaabe", None, 8.9, "C", ["उस रात मैं सोई… और मेरी आँख खुली, अपने ही मन की अदालत में।"], None, {"narr": True, "fout": (1.0, "black")}),  # VO 2
  ("5",  "old:4",  None, None, "C", ["मैं कहाँ हूँ… ये जगह कौन सी है?"], None, {"fin": (1.5, "black")}),
  ("6",  "old:5",  None, None, "C", ["रिया शर्मा… तुम्हारे ख़िलाफ़ केस तुमने ही किया है।"], None),
  ("7",  "up:0f798bb4", None, 8.0, "C", ["ये अदालत तुम्हारे मन की है। यहाँ शीशे झूठ नहीं बोलते।"], None),
   ("9",  "old:6",  None, None, "C", ["तुम… तुम मैं हो?"], None, {"tag": "जज रिया — रिया का अपना मन"}),  # who is she?
  # the judge in this take has an older face: frame on Riya only, the question comes from off-screen
  # the channel's theme (मन की तह): the court is her own mind
- ("9v", "old:6", 9.95, None, "C", [], None, {"hold": 5.5, "mute": [(0, 99)],
-        "vo": "ये मेरा मन था… जहाँ मैं ही वकील थी, मैं ही जज… और मैं ही मुजरिम।"}),
+ ("9v", "up:c3d574aa", None, 9.3, "C", ["ये मेरा मन था… जहाँ मैं ही वकील थी, मैं ही जज… और मैं ही मुजरिम।"], None, {"narr": True}),  # VO 16
  # --- 2. witness 1: Neha
  ("8a", "old:14", 0.0, 1.35, "C", ["तीन गवाह आएँगे।"], None),
  ("8b", "old:14", 3.7, None, "C", ["मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
@@ -91,8 +90,7 @@ SHOTS = [
  ("35", "up:9640527b", None, None, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  # the father looked young (like Aarav): keep the girl and Maa only, and end before he leans in
  # bridge instead of the childhood flashback: the twist lands on Riya's own blindness
- ("35s", "up:9640527b", 10.1, None, "M", [], None, {"hold": 6.0, "mute": [(0, 99)], "fout": (0.6, "black"),
-        "vo": "मैं अपने आँसुओं में इतनी डूबी रही… कि माँ के आँसू मुझे कभी दिखे ही नहीं।"}),
+ ("35s", "up:30a5d2d9", None, 8.6, "M", ["मैं अपने आँसुओं में इतनी डूबी रही… कि माँ के आँसू मुझे कभी दिखे ही नहीं।"], None, {"narr": True, "fout": (0.6, "black")}),  # VO 15
  ("40", "up:641e0ae5", None, None, "C", ["अहंकार हमेशा 'मैं' नहीं चिल्लाता… कभी-कभी वो आँसू पहनकर आता है।"], None),
  ("41", "old:33", None, None, "C", ["सच ये है… तुम गलत नहीं थी, तुम थक गई थी।"], None),
  # --- 6. verdict
@@ -108,9 +106,10 @@ SHOTS = [
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
  ("53", "old:44", 1.0, 4.5, "G", [], None),
  ("54", "old:45", 3.0, 6.5, "G", [], None),
+ ("55v", "up:1ae8be95", None, 9.0, "G", ["माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"], None, {"narr": True}),  # VO 7
  ("56", "up:f4f66b56", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None,
         {"pitch": (0.9, 2.1, 0.80)}),  # R5: Maa's line pitched down so the two voices differ
  # last image speaks to the viewer: everyone has this court inside
- ("58", "up:2c870df4", None, None, "G", [], None, {"fout": (2.0, "black"),
-        "vo": "हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"}),
+ ("58", "up:7596ce4e", None, None, "G", ["हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"], None, {"narr": True, "pic": ("up:2c870df4", 0.0)}),  # VO 17 over the mirror
+ ("58h", "up:2c870df4", 9.9, None, "G", [], None, {"hold": 2.6, "mute": [(0, 99)], "fout": (2.0, "black")}),  # let the last word land, then fade
 ]
