@@ -30,8 +30,7 @@ SHOTS = [
  ("1",  "old:1",  None, None, "W", [], None, {"fin": (2.0, "black"),
         "vo": "मेरा नाम रिया है। घर से दूर, पुणे में अकेली रहती हूँ… और मुझे लगता था, मेरी ज़िंदगी में सबने मुझे सिर्फ़ दुख दिया है।"}),
  # Maa's voice note: only the lit phone is shown, so nobody on screen seems to say Maa's words
- ("2",  "up:d844e215", 1.5, None, "W", ["रिया… आज तो फ़ोन उठा ले बेटा…"], None,
-        {"crop": (0.38, 0.42, 0.5), "push": 1.12}),
+ ("2",  "up:2f6bfda3", None, 8.5, "W", ["रिया… आज तो फ़ोन उठा ले बेटा…"], None),  # R1: only the phone is seen
  ("3",  "up:90613145", None, None, "W", ["नेहा… आरव… माँ। चौथा नाम… बाद में।"], None),
  ("4",  "old:3",  None, None, "W", [], None, {"fout": (1.5, "black"),
         "vo": "उस रात मैं सोई… और मेरी आँख खुली, अपने ही मन की अदालत में।"}),
