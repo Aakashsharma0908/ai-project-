@@ -71,3 +71,20 @@ hindi short film, emotional short film, maa short film, andar ki adalat, man ki 
 - **पहले दिन:** पूरी फ़िल्म
 - **अगले दिन:** short1_birthday, ये सबसे दमदार है
 - **फिर:** short2_khana, short3_kirdar, short4_adalat, एक-एक दिन छोड़कर
+
+## Facebook (`andar_ki_adalat_FACEBOOK.mp4`)
+- **फ़्रेम:** 4:5 (1080×1350), फ़ोन की फ़ीड के लिए बना है।
+- **Subtitles:** हिंदी subtitles वीडियो में छपे हुए हैं, इसलिए अलग से SRT डालने की ज़रूरत नहीं।
+- **इंट्रो और आउट्रो:** पहले सेकंड से हुक और जज रिया दिखती है। आख़िर में 7 सेकंड का कमेंट और फ़ॉलो कार्ड है, जिसमें YouTube का ज़िक्र नहीं।
+- **अपलोड कैसे करें:** Page से **Video** के रूप में डालें।
+  - अगर Facebook इसे Reel बनाने को कहे तो भी ठीक है।
+  - **AI label** ("Made with AI" / "AI info") ज़रूर ऑन करें।
+  - वीडियो 3 मिनट से लंबा है, इसलिए in-stream ads के लायक है।
+- **कैप्शन, पहली लाइन ही हुक हो:**
+```
+Mere khilaf case... maine hi kiya? 💔
+Ek raat Riya jaagti hai apne hi man ki adalat mein... aur shisha use wo dikhata hai jo usne kabhi dekhna nahi chaha.
+Aakhir tak dekhna ❤️ Aur comment mein batana: aapke man ki adalat mein aaj kiska case chal raha hai? 👇
+#mankiteh #hindishortfilm #maa #emotional #andarkiadalat
+```
+- **पोस्ट करने के बाद:** पहला कमेंट ख़ुद करके pin करें: "आपके मन की अदालत में आज किसका केस चल रहा है? 👇"
