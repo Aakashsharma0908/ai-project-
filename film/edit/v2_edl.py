@@ -27,8 +27,7 @@ MIRROR_TAG = "शीशे का सच"
 
 SHOTS = [
  # --- 1. hook and setup
- ("1",  "old:1",  None, None, "W", [], None, {"fin": (2.0, "black"),
-        "vo": "घर से दूर, पुणे में अकेली रहती हूँ… और मुझे लगता था, मेरी ज़िंदगी में सबने मुझे सिर्फ़ दुख दिया है।"}),
+ ("1",  "up:1a9d2885", None, 9.3, "W", ["घर से दूर, पुणे में अकेली रहती हूँ… और मुझे लगता था, मेरी ज़िंदगी में सबने मुझे सिर्फ़ दुख दिया है।"], None, {"narr": True, "fin": (2.0, "black")}),  # VO 1
  # Maa's voice note: only the lit phone is shown, so nobody on screen seems to say Maa's words
  ("2",  "up:2f6bfda3", None, 8.5, "W", ["रिया… आज तो फ़ोन उठा ले बेटा…"], None, {"tag": "माँ का वॉइसमेल"}),  # R1: only the phone is seen
  ("3",  "up:90613145", None, None, "W", ["नेहा… आरव… माँ। चौथा नाम… बाद में।"], None),
@@ -48,8 +47,7 @@ SHOTS = [
  ("c1", "up:76e8986c", None, None, "W", ["नेहा… मेरी पंद्रह साल पुरानी सहेली। उसकी सगाई हो गई… और उसने मुझे बताया तक नहीं।"], None, {"narr": True, "title": ("पहला गवाह — नेहा", "15 साल पुरानी दोस्त")}),
  ("n1", "up:70c5c1a3", None, None, "W", ["…और मुझे बताया तक नहीं?"], None),
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"], None),
- ("m1", "card", None, None, "C", [], None, {"text": "[ VO 18 — शीशा सच दिखाता है ]", "sub": "नई क्लिप आनी है", "dur": 3.0,
-        "vo": "और फिर… शीशे ने मुझे वो दिखाया, जो उस दिन मैंने देखना ही नहीं चाहा।"}),
+ ("m1", "up:71f4978b", None, 7.6, "C", ["और फिर… शीशे ने मुझे वो दिखाया, जो उस दिन मैंने देखना ही नहीं चाहा।"], None, {"narr": True, "crop": (0.07, 0.0, 0.86)}),  # VO 18 (its burned-in English captions framed out)
  ("13", "up:12889a77", None, 6.6, "M", ["रिया, मुझे तुझे कुछ बताना है…", "अच्छा छोड़, तू बता, तेरा दिन कैसा था?"], None,
         {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  # the phone call was one frame with both girls side by side: split into Neha's half, then Riya's half
@@ -111,7 +109,7 @@ SHOTS = [
  ("54", "old:45", 2.0, 6.5, "G", [], None),
  ("55", "up:371fae17", 0.0, 7.5, "G", [], None, {"gain": -12,
         "vo": "माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"}),
- ("56", "up:f51b022a", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None, {"crop": (0.0, 0.10, 0.86)}),
+ ("56", "up:f4f66b56", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None),  # R5: two clear voices
  # last image speaks to the viewer: everyone has this court inside
  ("58", "up:2c870df4", None, None, "G", [], None, {"fout": (2.0, "black"),
         "vo": "हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"}),
