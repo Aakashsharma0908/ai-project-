@@ -26,6 +26,7 @@ ENC = ["-c:v", "libx264", "-preset", "medium" if FINAL else "ultrafast", "-crf",
 FONT = "/usr/share/fonts/truetype/noto/NotoSansDevanagari-Bold.ttf"
 SERIF = "/usr/share/fonts/truetype/noto/NotoSerifDevanagari-Bold.ttf"
 COLD, TITLE, OUTRO = 7.0, 4.5, 20.0
+BURN_SUBS = False  # no captions in the picture; subtitles ship as .srt files
 BAR = int(32 * K)
 GRAIN = ",noise=alls=4:allf=t" if FINAL else ""
 LOOK = {
@@ -99,7 +100,7 @@ for n, shot in enumerate(SHOTS):
              "-filter_complex", f"[1]format=rgba,fade=t=in:st=0.15:d=0.5:alpha=1,fade=t=out:st={d-0.55}:d=0.5:alpha=1[t];"
                                 f"[0][t]overlay,format=yuv420p[v]",
              "-map", "[v]", "-an", "-t", str(d), *ENC, str(out)])
-        if o.get("vo") and not FINAL:
+        if o.get("vo") and not FINAL and BURN_SUBS:
             pv = WK / f"vo{n}.png"; png(pv, [("रिया (मन में): " + o["vo"], FONT, 23, 540 - 140, (255, 225, 120), True)])
             tmpc = out.with_name(out.stem + "_t.mkv"); out.rename(tmpc)
             run(["ffmpeg", "-y", "-v", "error", "-i", str(tmpc), "-i", str(pv), "-filter_complex",
@@ -142,7 +143,7 @@ for n, shot in enumerate(SHOTS):
         last = "v0"; ov = 0
         # burned subtitles: spread the script lines across the measured speech inside the shot
         segs = [(s, e) for s, e, *_ in TIM.get(src, []) if e > tin and s < tout]
-        if subs:
+        if subs and BURN_SUBS:
             a = max(segs[0][0], tin) - tin if segs else 0.4; b = min(segs[-1][1], tout) - tin if segs else d - 0.4
             if len(segs) == len(subs): spans = [(max(s, tin) - tin, min(e, tout) - tin) for s, e in segs]
             else:
@@ -156,7 +157,7 @@ for n, shot in enumerate(SHOTS):
                 inputs += ["-i", str(p)]
                 chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,{s0:.2f},{e1:.2f})'[o{ov}]"
                 last = f"o{ov}"; k += 1; ov += 1
-        if o.get("vo") and FINAL is False:  # narration placeholder until the voice clip is delivered
+        if o.get("vo") and FINAL is False and BURN_SUBS:  # narration placeholder until the voice clip is delivered
             p = WK / f"vo{n}.png"; png(p, [("रिया (मन में): " + o["vo"], FONT, 23, 540 - 140, (255, 225, 120), True)])
             inputs += ["-i", str(p)]
             chain += f";[{last}][{k}:v]overlay=0:0:enable='between(t,0.1,{d - 0.1:.2f})'[o{ov}]"; last = f"o{ov}"; k += 1; ov += 1
@@ -183,8 +184,17 @@ for n, shot in enumerate(SHOTS):
         run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", chain + f";[{last}]format=yuv420p[vo]",
              "-map", "[vo]", "-an", "-t", f"{d:.4f}", *ENC, str(out)])
         d = frames(out) / 24  # picture is master
-        run(["ffmpeg", "-y", "-v", "error", "-ss", f"{tin:.3f}", "-i", str(f), "-vn",
-             "-af", af + ",apad", "-t", f"{d:.6f}", "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(out.with_suffix(".wav"))])
+        if "pitch" in o:
+            pa, pb, r = o["pitch"]; pa, pb = max(0, pa - tin), max(0, pb - tin)
+            fc = (f"[0:a]asplit=3[x][y][z];[x]atrim=0:{pa},asetpts=PTS-STARTPTS[p1];"
+                  f"[y]atrim={pa}:{pb},asetpts=PTS-STARTPTS,aresample=48000,asetrate={48000 * r:.0f},aresample=48000,"
+                  f"atempo={1 / r:.4f},equalizer=f=180:t=q:w=1:g=3[p2];[z]atrim={pb},asetpts=PTS-STARTPTS[p3];"
+                  f"[p1][p2][p3]concat=n=3:v=0:a=1,{af},apad[ao]")
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{tin:.3f}", "-i", str(f), "-vn", "-filter_complex", fc, "-map", "[ao]",
+                 "-t", f"{d:.6f}", "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(out.with_suffix(".wav"))])
+        else:
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{tin:.3f}", "-i", str(f), "-vn",
+                 "-af", af + ",apad", "-t", f"{d:.6f}", "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(out.with_suffix(".wav"))])
         fix_len(out.with_suffix(".wav"), d)
     timeline.append({"label": label, "start": round(t_acc, 6), "dur": d}); t_acc += d
     parts.append(out); print(label, src, f"{d:.2f}s", flush=True)

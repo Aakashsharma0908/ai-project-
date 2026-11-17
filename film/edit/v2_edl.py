@@ -17,6 +17,7 @@ Each shot: (label, source, in, out, look, subtitle lines, name card[, opts])
          speak=((a, b), (a, b))    when each side speaks (the other side is dimmed)
          slow=f          slow motion (source window plays f times slower, sound muted)
          phone=[(a, b)]  make those source seconds sound like a phone line
+         pitch=(a, b, r)  re-pitch those source seconds by ratio r (tell two similar AI voices apart)
          narr=True       this shot is narration (subtitles in yellow)
          title=(t, sub)  chapter title over the picture for the first seconds
          vo=text         Riya's inner voice (narration); shown as yellow text until the voice clip exists
@@ -60,6 +61,7 @@ SHOTS = [
  ("n2", "up:19bf35dd", 1.4, None, "W", [], None),
  ("16", "up:f0d1f21f", 1.6, None, "C", ["जिससे सबसे ज़्यादा प्यार किया… वही छोड़ गया।"], None),
  ("18", "old:10", None, None, "C", ["तुमने मुझे सबके सामने छोटा किया!", "मैंने बस तुम्हें रोकना चाहा था।"], None),
+ ("mc2", "up:0f798bb4", 8.0, 10.0, "C", [], None, {"mute": [(0, 99)], "fout": (0.25, "white")}),  # mirror motif
  ("19", "old:17", None, None, "M", ["तुम्हारी कहानी में मैं कभी सही हो ही नहीं सकता…", "क्योंकि उसमें सिर्फ़ एक ही किरदार है।"], None,
         {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  ("20", "old:18", None, None, "C", ["माफ़ी?", "गलती उसकी थी।"], None, {"mute": [(3.2, 4.6)]}),  # "माफ़ी" twice
@@ -77,6 +79,7 @@ SHOTS = [
  ("26a", "old:28", 0.0, 2.85, "C", ["आपने मुझे कभी समझा ही नहीं, सिर्फ़ खाना पूछा।"], None),
  ("26b", "old:28", 5.2, None, "C", [], None),  # Maa crying silently, then Riya
  # stop before Maa stirs a ladle inside a closed pressure cooker
+ ("mc3", "up:0f798bb4", 8.0, 10.0, "C", [], None, {"mute": [(0, 99)], "fout": (0.25, "white")}),  # mirror motif
  ("27", "old:25", 0.0, 3.3, "M", ["ठीक है बेटा…"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  ("29", "up:4f62cd0e", None, None, "M", [], None, {}),
  ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
@@ -99,12 +102,13 @@ SHOTS = [
  # --- 7. new morning: every setup pays off
  ("49", "old:41", 0.0, 5.0, "G", [], None, {"fin": (1.5, "white")}),
  ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
+ ("51b", "up:c862d4c9", None, None, "G", ["माँ… मैंने आपके सारे मैसेज पढ़ लिए। राजमा बचा है?"], None),
+ ("52", "up:d5c0f8e7", 3.5, None, "G", ["तेरे लिए तो रोज़ थोड़ा बचाकर रखती हूँ।"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
  ("53", "old:44", 1.0, 4.5, "G", [], None),
  ("54", "old:45", 3.0, 6.5, "G", [], None),
- ("55", "up:371fae17", 0.0, 7.5, "G", [], None, {"gain": -12,
-        "vo": "माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"}),
- ("56", "up:f4f66b56", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None),  # R5: two clear voices
+ ("56", "up:f4f66b56", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None,
+        {"pitch": (0.9, 2.1, 0.80)}),  # R5: Maa's line pitched down so the two voices differ
  # last image speaks to the viewer: everyone has this court inside
  ("58", "up:2c870df4", None, None, "G", [], None, {"fout": (2.0, "black"),
         "vo": "हम सबके मन में एक अदालत चलती है… जहाँ हम ख़ुद को हमेशा बेगुनाह मानते हैं। आज एक बार… अपने मन की तह तक जाकर देखिए।"}),
