@@ -1,60 +1,73 @@
-# YouTube अपलोड पैकेज: अंदर की अदालत
+# YouTube अपलोड पैकेज: अंदर की अदालत (फ़ाइनल)
 
-## टाइटल (कोई एक चुनें)
+## फ़ाइलें
+| फ़ाइल | क्या है |
+|---|---|
+| `andar_ki_adalat_FINAL.mp4` | पूरी फ़िल्म: 1080p, -14 LUFS, लगभग 9 मिनट (इंट्रो और 20 सेकंड का एंड-स्क्रीन शामिल) |
+| `andar_ki_adalat.hi.srt` | हिंदी subtitles (YouTube पर अलग से अपलोड करने हैं) |
+| `andar_ki_adalat.en.srt` | English subtitles |
+| `thumbnail.jpg` | Thumbnail (1280×720) |
+| `short1_birthday.mp4` … `short4_adalat.mp4` | 4 Shorts/Reels (9:16) |
 
-1. **अंदर की अदालत | जब मेरे ख़िलाफ़ केस मैंने ही किया 💔 | Emotional Hindi Short Film**
-2. **मेरे ख़िलाफ़ केस… मैंने ही किया? | अंदर की अदालत | Hindi Short Film**
-3. **हर बार मेरे साथ ही क्यों होता है? | अंदर की अदालत | Maa Emotional Short Film**
-
-> टाइटल 70 अक्षरों से छोटा रखें, ताकि मोबाइल पर पूरा दिखे। पहला टाइटल सबसे ज़्यादा उत्सुकता जगाता है।
-
-## डिस्क्रिप्शन (कॉपी-पेस्ट करें)
-
+## टाइटल
 ```
-क्या आपने कभी सोचा है… जिसे आप दुनिया की गलती समझते रहे, वो फ़ैसला आपके अंदर की अदालत में किसका होगा?
+Mere Khilaf Case... Maine Hi Kiya? 💔 | Andar Ki Adalat | Emotional Hindi Short Film
+```
 
-रिया को लगता था कि सबने उसे छोड़ दिया — दोस्त ने, प्यार ने, और माँ ने भी।
-एक रात, सपने में, वो एक अजीब अदालत में जागती है… जहाँ केस उसके ख़िलाफ़ है, और केस करने वाली भी वो ख़ुद है।
+## डिस्क्रिप्शन
+```
+Ghar se door, Pune mein akeli... Riya ko lagta tha sabne use sirf dukh diya — dost ne, pyaar ne, aur Maa ne bhi.
+Ek raat wo jaagti hai apne hi man ki adalat mein... jahan case uske khilaf hai, aur case karne wali bhi wo khud hai.
+Aur phir shishe ne use wo dikhaya, jo usne kabhi dekhna hi nahi chaha. 💔
 
-ये कहानी है अहंकार, आँसुओं, माफ़ी और माँ के प्यार की।
-अगर इस फ़िल्म ने आपको किसी की याद दिलाई — तो आज उन्हें एक फ़ोन ज़रूर कर लीजिए। ❤️
+Ye kahani hai ego, aansu, maafi aur Maa ke pyaar ki.
+Agar is film ne kisi ki yaad dilayi — aaj unhe ek call zaroor kar lena. ❤️
 
-👉 कमेंट में बताइए: आपको किससे माफ़ी माँगनी है… या किसे माफ़ करना है?
+👇 Comment karo: Aapke man ki adalat mein aaj kiska case chal raha hai?
 
-#अंदरकीअदालत #HindiShortFilm #EmotionalShortFilm #MaaKaPyaar #ShortFilm #Maafi #SelfLove #AIFilm
+🔔 Subscribe: Man Ki Teh (मन की तह)
+
+#AndarKiAdalat #HindiShortFilm #ManKiTeh
 ```
 
 ## टैग्स
-
 ```
-hindi short film, emotional short film, maa short film, andar ki adalat, inner court, self forgiveness, maafi, maa beti, emotional story hindi, short film 2026, heart touching short film, ai short film, motivational short film hindi, mother daughter story, ego and forgiveness
+hindi short film, emotional short film, maa short film, andar ki adalat, man ki teh, mann ki adalat, self forgiveness, ego and forgiveness, maa beti story, heart touching short film, ai short film, mother daughter emotional, birthday emotional story
 ```
 
-## अपलोड करते समय ये ज़रूर करें
-
+## अपलोड करते समय
 1. **Thumbnail:** `thumbnail.jpg` लगाएँ।
-2. **Subtitles:** YouTube Studio में जाएँ, फिर **Subtitles → Add language → Upload file → With timing** चुनें।
-   - Hindi के लिए: `riya_andar_ki_adalat.hi.srt`
-   - English के लिए: `riya_andar_ki_adalat.en.srt`
-
-   English subtitles से फ़िल्म देश के बाहर के लोगों तक भी पहुँचेगी।
-3. **End screen:** फ़िल्म के आख़िरी 20 सेकंड इसी के लिए खाली रखे गए हैं। **Editor → End screen** में ये दो चीज़ें जोड़ें:
-   - एक **Subscribe** बटन, बीच में नीचे की तरफ़
+2. **Subtitles:** Studio में **Subtitles → Add language → Upload file → With timing** चुनकर Hindi (`.hi.srt`) और English (`.en.srt`) दोनों डालें। फ़िल्म में कोई subtitle छपा नहीं है।
+3. **End screen:** आख़िरी 20 सेकंड इसी के लिए हैं। **Editor → End screen** में ये दो चीज़ें जोड़ें:
+   - **Subscribe** बटन, बीच में नीचे की तरफ़
    - एक **Best for viewer** वीडियो, दाएँ तरफ़
 
-   ऊपर वाली लाइन ("माफ़ी माँगना हार नहीं है…") को खाली छोड़ दें, उसके ऊपर कुछ न लगाएँ।
-4. **Category:** Film & Animation
-5. **Audience:** "No, it's not made for kids"
-6. **Altered or synthetic content:** YouTube पूछता है कि वीडियो में AI से बना असली-जैसा कंटेंट है या नहीं। इस फ़िल्म के किरदार AI से बने हैं, इसलिए यहाँ **"Yes"** चुनें। ये YouTube का नियम है, और इससे वीडियो की पहुँच नहीं घटती।
-7. **पोस्ट करने का समय:** भारत में शाम 7 से 9 बजे के बीच पोस्ट करें, इस समय सबसे ज़्यादा लोग देखते हैं।
-8. **पहला कमेंट:** अपलोड होते ही ये सवाल ख़ुद कमेंट करके pin कर दें: "आपको किससे माफ़ी माँगनी है? 👇"
+   ऊपर वाली लाइन ("आपके मन की अदालत में… आज किसका केस चल रहा है?") को खाली छोड़ें, उसके ऊपर कुछ न लगाएँ।
+4. **Altered or synthetic content:** "Yes" चुनें, क्योंकि किरदार AI से बने हैं। ये YouTube का नियम है।
+5. **Category:** Film & Animation। **Audience:** "Not made for kids"।
+6. **पोस्ट करने का समय:** शाम 7 से 9 बजे के बीच। अपलोड होते ही ये कमेंट ख़ुद करके pin कर दें: *"आपके मन की अदालत में आज किसका केस चल रहा है? 👇"*
 
-## फ़िल्म में दर्शक को रोके रखने के लिए क्या किया गया है
+## Shorts / Reels (ये 4 चुने हैं)
+| फ़ाइल | हुक | कैप्शन |
+|---|---|---|
+| short1_birthday | जिस दिन माँ का जन्मदिन था… मैंने फ़ोन तक नहीं उठाया | Maa ka birthday tha… aur maine call tak nahi uthaya 💔 |
+| short2_khana | माँ बस इतना ही पूछती थी… "खाना खाया?" | Maa bas itna hi poochti thi… "Khana khaya?" 🥺❤️ |
+| short3_kirdar | तुम्हारी कहानी में… सिर्फ़ एक ही किरदार है | Tumhari kahani mein sirf ek hi kirdar hai… 💔 |
+| short4_adalat | मेरे ख़िलाफ़ केस… मैंने ही किया? | Mere khilaf case… maine hi kiya? 😳 |
 
-- **0-7 सेकंड (हुक):** स्क्रीन काली रहती है और जज की गूँजती आवाज़ आती है: "रिया शर्मा… तुम्हारे ख़िलाफ़ केस तुमने ही किया है।" इससे पहले सेकंड से ही सवाल खड़ा हो जाता है।
-- **टाइटल:** सिर्फ़ 4.5 सेकंड का है, ताकि कहानी जल्दी शुरू हो।
-- **रफ़्तार:** हर क्लिप से खाली सेकंड काट दिए गए हैं, पर डायलॉग के बाद किरदार का रिएक्शन (आँसू, चुप्पी) बचाकर रखा है।
-- **दो दुनिया:** कोर्टरूम सिनेमा जैसे चौड़े फ़्रेम (ऊपर-नीचे काली पट्टियों) में है, असली ज़िंदगी पूरी स्क्रीन पर। बार-बार दुनिया बदलने से दर्शक का ध्यान बना रहता है।
-- **म्यूज़िक:** एक ही धुन पूरी फ़िल्म में बदलती रहती है। शुरुआत में उदास पियानो पर है, माँ के सीन में बाँसुरी पर, बचपन वाले सीन में म्यूज़िक-बॉक्स पर, और अंत में खुशी वाली धुन पर।
-- **चीख़ के बाद सन्नाटा (क्लिप 29 से 30):** म्यूज़िक अचानक रुक जाता है। ये पल फ़िल्म का सबसे भारी पल बन जाता है।
-- **फ़्रेम खुलना:** जब रिया जागती है, तो कोर्टरूम वाली काली पट्टियाँ हट जाती हैं और फ़्रेम खुल जाता है। ये उसकी आज़ादी को दिखाता है।
+हर कैप्शन के नीचे ये लाइन डालें: `Poori film channel par 👉 Man Ki Teh`
+
+**हैशटैग, Instagram:**
+```
+#maa #maakapyaar #emotionalreels #hindishortfilm #sadreels #reelsindia #trendingreels #viralreels #explorepage #mankiteh #andarkiadalat
+```
+
+**हैशटैग, YouTube Shorts:**
+```
+#shorts #maa #emotional #hindishortfilm #mankiteh
+```
+
+**पोस्ट करने का क्रम:**
+- **पहले दिन:** पूरी फ़िल्म
+- **अगले दिन:** short1_birthday, ये सबसे दमदार है
+- **फिर:** short2_khana, short3_kirdar, short4_adalat, एक-एक दिन छोड़कर
