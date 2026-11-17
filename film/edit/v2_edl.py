@@ -41,9 +41,9 @@ SHOTS = [
  # the channel's theme (मन की तह): the court is her own mind
  ("9v", "old:6", 7.0, 10.0, "C", [], None, {"slow": 2.0, "mute": [(0, 99)],
         "vo": "ये मेरा मन था… जहाँ मैं ही वकील थी, मैं ही जज… और मैं ही मुजरिम।"}),
- ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),
  # --- 2. witness 1: Neha
- ("8",  "old:14", None, None, "C", ["तीन गवाह आएँगे।", "मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
+ ("8a", "old:14", 0.0, 1.35, "C", ["तीन गवाह आएँगे।"], None),
+ ("8b", "old:14", 3.7, None, "C", ["मुझे किसी की ज़रूरत नहीं। मैं सही हूँ।"], None),
  ("c1", "up:76e8986c", None, None, "W", ["नेहा… मेरी पंद्रह साल पुरानी सहेली। उसकी सगाई हो गई… और उसने मुझे बताया तक नहीं।"], None, {"narr": True, "title": ("पहला गवाह — नेहा", "15 साल पुरानी दोस्त")}),
  ("n1", "up:70c5c1a3", None, None, "W", ["…और मुझे बताया तक नहीं?"], None),
  ("11", "up:6de22cd4", None, 8.0, "C", ["पंद्रह साल की दोस्ती… और इसकी सगाई की ख़बर मुझे इंस्टाग्राम से मिली!"], None),
@@ -82,8 +82,8 @@ SHOTS = [
  ("29v", "up:2972e4e5", None, None, "M", ["मुझे कभी दिखा ही नहीं… कि मेरे जाने के बाद, वो घर कितना ख़ाली हो गया था।"], None, {"narr": True, "fout": (0.8, "black")}),
  ("31", "old:30", None, None, "C", [], None, {"mute": [(0, 99)]}),  # English line under the silence
  # --- 5. twist and the root
- ("33", "old:32", None, None, "C", ["अब सच वाली बात सुनो।"], None),
  ("34", "up:a20d5c8e", None, None, "C", ["आज कौन सी तारीख़ है, रिया?", "…माँ का जन्मदिन।"], None),
+ ("10", "up:7b78fadc", None, None, "C", ["सच सुनने की हिम्मत है, रिया?", "हाँ…"], None),
  ("35", "up:9640527b", None, 6.4, "M", ["कोई बात नहीं… बिज़ी होगी।"], None, {"fin": (0.25, "white"), "tag": MIRROR_TAG}),
  # the father looked young (like Aarav): keep the girl and Maa only, and end before he leans in
  # bridge instead of the childhood flashback: the twist lands on Riya's own blindness
@@ -95,18 +95,13 @@ SHOTS = [
  ("43", "up:0cdf3bcf", None, None, "C", ["चौथा नाम लिखो।", "…रिया।"], None),
  ("44", "old:36", None, None, "C", ["माँ… मुझे माफ़ कर दो…"], None),
  ("45", "old:37", None, None, "C", [], None, {"gain": -9}),
- ("46", "old:38", None, 8.8, "C", ["मैं समझ गई, रिया।"], None),  # stray "मैं" after 9 s cut
- ("47", "old:39", None, None, "C", ["मैं तुम्हारे साथ हूँ।"], None),
  ("48", "old:40", None, None, "C", ["फ़ैसला सुनाया जाता है…", "ख़ुद को माफ़ कर दो।"], None, {"fout": (1.2, "white")}),
  # --- 7. new morning: every setup pays off
- ("49", "old:41", 0.0, 6.5, "G", [], None, {"fin": (1.5, "white")}),
- ("49v", "up:950adc33", None, None, "G", ["उस सुबह मैंने तय किया… अब मैं अपनी कहानी में अकेली नहीं रहूँगी।"], None, {"narr": True}),
+ ("49", "old:41", 0.0, 5.0, "G", [], None, {"fin": (1.5, "white")}),
  ("50", "up:902b666f", 5.5, None, "G", ["हाँ बेटा?"], None),
  ("51", "up:0cd51bcb", None, None, "G", ["हैप्पी बर्थडे, माँ… सॉरी… मैं घर आ रही हूँ।"], None),
- ("51b", "up:c862d4c9", None, None, "G", ["माँ… मैंने आपके सारे मैसेज पढ़ लिए। राजमा बचा है?"], None),
- ("52", "up:d5c0f8e7", 3.5, None, "G", ["तेरे लिए तो रोज़ थोड़ा बचाकर रखती हूँ।"], None),  # line starts at 5.5 s
- ("53", "old:44", 0.0, 4.5, "G", [], None),
- ("54", "old:45", 2.0, 6.5, "G", [], None),
+ ("53", "old:44", 1.0, 4.5, "G", [], None),
+ ("54", "old:45", 3.0, 6.5, "G", [], None),
  ("55", "up:371fae17", 0.0, 7.5, "G", [], None, {"gain": -12,
         "vo": "माफ़ी माँगना हार नहीं थी… वो मेरी सबसे बड़ी जीत थी।"}),
  ("56", "up:f4f66b56", None, None, "G", ["खाना खाया?", "आपके साथ खा रही हूँ, माँ।"], None),  # R5: two clear voices
