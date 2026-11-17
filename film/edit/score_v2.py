@@ -92,7 +92,7 @@ def chapter(label):  # deep hit + harp gliss under each witness card
 for c in ("c1", "c2", "c3"): chapter(c)
 
 # 11-15 Neha
-arp(S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("11"), E("15"), ["Am", "F", "Dm", "E"], 3.2, 40)
+arp(S("11"), E("14s"), ["Am", "F", "Dm", "E"], 3.2, 48); pad("strings", S("11"), E("14s"), ["Am", "F", "Dm", "E"], 3.2, 40)
 swell(S("13")); drone("pad", S("13"), E("14b"), [64, 69, 76], 50)
 # 16-20 Aarav: strings rise, heartbeat under the defence
 pad("strings", S("16"), E("20"), ["Dm", "Bb", "F", "A"], 3.0, 50); ramp("strings", S("16"), E("20"), 60, 110)
@@ -107,12 +107,8 @@ arp(S("24"), E("29v"), ["Am", "F", "C", "E"], 3.4, 44); pad("strings", S("24"), 
 theme("flute", S("24") + 1.0, MIN, 0.9, 62)
 swell(S("27")); theme("flute", S("28") + 1.0, MIN, 0.9, 58, limit=E("29v"))
 # 30 the scream: everything builds, then stops dead for the silence of 31
-t = S("30")
-while t < E("30") - 3.5:
-    note("cello", t, 0.35, 45, 85); note("cello", t + 0.375, 0.35, 45, 72); t += 0.75
-heart(S("30"), E("30") - 3.5, 0.7, 72); pad("strings", S("30"), E("30") - 3.5, ["Dm", "Bb", "E", "E"], 2.5, 62)
-ramp("strings", S("30"), E("30") - 3.5, 60, 127); note("timp", E("30") - 3.6, 3.0, 33, 127)
-drone("choir", S("30") + 2, E("30") - 3.5, [57, 64, 69, 76], 80)
+# (the scream was cut) the Maa chapter ends on a long low swell into the silence of 31
+drone("cello", S("29v"), E("29v") + 1.0, [45, 52], 70); ramp("cello", S("29v"), E("29v") + 1.0, 60, 0)
 # 31-33 aftermath: a single violin thread
 note("violin", S("31") + 1.0, E("33") - S("31") - 1.0, 88, 45); ramp("violin", S("31"), E("33"), 30, 60)
 for k, p in enumerate([69, 72, 71, 69]): note("piano", S("31") + 2 + k * 2.2, 2.0, p, 36)
@@ -142,7 +138,7 @@ note("timp", S("48") + 6.0, 3.5, 36, 127); drone("strings", S("48") + 6, E("48")
 # 49-57 morning: light piano, the theme in C major on flute; the dinner is the warmest moment
 arp(S("49"), E("58"), ["C", "G", "Am", "F"], 2.6, 54); pad("strings", S("49"), E("58"), ["C", "G", "Am", "F"], 2.6, 42)
 theme("flute", S("49") + 2.0, MAJ, 0.8, 58); theme("flute", S("52") + 0.5, MAJ, 0.85, 56)
-theme("violin", S("56") + 0.5, MAJ, 0.9, 60, -12); theme("flute", S("57") + 1.0, MAJ[:5], 1.0, 56)
+theme("violin", S("56") + 0.5, MAJ, 0.9, 60, -12)
 drone("choir", S("58") + 0.5, E("58"), [60, 67, 72], 42); theme("piano", S("58") + 1.0, MAJ, 0.9, 48, 12)
 drone("strings", S("58") + 4, END + 2, [60, 64, 67, 74], 45); ramp("strings", S("58") + 4, END + 2, 60, 0)
 # outro

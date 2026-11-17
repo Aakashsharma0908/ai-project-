@@ -76,6 +76,16 @@ def png(path, lines, glow=0):
             d.text((x, yy), r, font=f, fill=col + (255,), stroke_width=max(2, int(3 * K)), stroke_fill=(0, 0, 0))
     img.save(path)
 
+REAL, MIND = set("WGS"), set("CM")
+for idx, sh in enumerate(SHOTS):
+    o_ = sh[7] if len(sh) > 7 else {}
+    if len(sh) == 7: SHOTS[idx] = tuple(sh) + (o_,)
+    if idx + 1 < len(SHOTS):
+        nxt = SHOTS[idx + 1]; on = nxt[7] if len(nxt) > 7 else {}
+        if (sh[4] in REAL) != (nxt[4] in REAL) and sh[1] != "card" and nxt[1] != "card":
+            o_.setdefault("fout", (0.25, "black"))
+            if len(nxt) == 7: SHOTS[idx + 1] = tuple(nxt) + (on,)
+            on.setdefault("fin", (0.25, "black"))
 parts, timeline, t_acc = [], [], 0.0
 for n, shot in enumerate(SHOTS):
     label, src, tin, tout, look, subs, _card = shot[:7]; o = shot[7] if len(shot) > 7 else {}
@@ -168,8 +178,8 @@ for n, shot in enumerate(SHOTS):
             w = f"enable='between(t,{max(0, a0 - tin):.2f},{max(0, b0 - tin):.2f})'"
             af += f",highpass=f=380:{w},lowpass=f=3000:{w},volume=1.6:{w}"
         if o.get("gain"): af += f",volume={o['gain']}dB"
-        if "fin" in o: af += f",afade=t=in:st=0:d={min(o['fin'][0], 0.8)}"
-        if "fout" in o: af += f",afade=t=out:st={d - o['fout'][0]:.3f}:d={o['fout'][0]}"
+        af += f",afade=t=in:st=0:d={min(o['fin'][0], 0.8) if 'fin' in o else 0.015}"
+        af += f",afade=t=out:st={d - (o['fout'][0] if 'fout' in o else 0.015):.3f}:d={o['fout'][0] if 'fout' in o else 0.015}"
         run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", chain + f";[{last}]format=yuv420p[vo]",
              "-map", "[vo]", "-an", "-t", f"{d:.4f}", *ENC, str(out)])
         d = frames(out) / 24  # picture is master
